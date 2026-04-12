@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Thuyết minh bài dự thi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Be Vietnam Pro',sans-serif;
+  color:white;
+}
+
+/* VIDEO */
+#video-background{
+  position:fixed;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+}
+
+/* OVERLAY */
+.overlay{
+  background:rgba(0,0,0,0.65);
+  min-height:100vh;
+  padding:20px 15px 80px;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.header h1{
+  font-size:1.6rem;
+  color:#FFD700;
+}
+
+/* PROGRESS */
+.progress-container{
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.2);
+  border-radius:10px;
+  margin:10px 0 15px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#FFD700;
+  transition:width 0.4s ease;
+}
+
+/* MARQUEE */
+.marquee{
+  overflow:hidden;
+  background:rgba(0,0,0,0.7);
+  padding:8px;
+  margin:10px 0;
+}
+
+.marquee span{
+  display:inline-block;
+  white-space:nowrap;
+  animation:marquee 12s linear infinite;
+  color:#FFD700;
+}
+
+@keyframes marquee{
+  from{transform:translateX(100%)}
+  to{transform:translateX(-100%)}
+}
+
+/* MENU */
+.menu{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.menu button{
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #FFD700;
+  background:rgba(0,0,0,0.8);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.menu button.active{
+  background:#FFD700;
+  color:black;
+}
+
+/* CONTENT */
+.content{
+  display:none;
+  background:rgba(0,0,0,0.7);
+  padding:15px;
+  border-radius:12px;
+  line-height:1.6;
+}
+
+.content.active{
+  display:block;
+}
+
+.content video{
+  width:100%;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+/* BUTTON */
+.read-btn{
+  margin-top:10px;
+  background:#FFD700;
+  color:black;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+}
+
+/* MUSIC */
+.music-btn{
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:#FFD700;
+  border:none;
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+/* NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:space-around;
+  padding:8px;
+}
+
+.bottom-nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:0.75rem;
+}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .menu{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<video id="video-background" autoplay loop muted playsinline>
+  <source src="videonen.mp4" type="video/mp4">
+</video>
+
+<div class="overlay">
+
+<audio id="bg-music" loop>
+  <source src="nhacnen.mp3" type="audio/mp3">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🔊</button>
+
+<div class="header">
+  <h1>📄 THUYẾT MINH BÀI DỰ THI</h1>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="marquee">
+  <span>📢 Bạn đang xem Nội dung thuyết minh Bài dự thi - Hãy chọn nội dung cần xem 📢</span>
+</div>
+
+<div class="menu">
+  <button onclick="showContent('gioithieu1',1)">1️⃣ Giới thiệu</button>
+  <button onclick="showContent('gioithieu2',2)">2️⃣ Ý tưởng</button>
+  <button onclick="showContent('gioithieu3',3)">3️⃣ Mục tiêu</button>
+</div>
+
+<!-- CONTENT 1 -->
+<div id="gioithieu1" class="content">
+  <h3>Giới thiệu nhóm</h3>
+  <video controls>
+    <source src="gioithieutacgia.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- CONTENT 2 -->
+<div id="gioithieu2" class="content">
+  <h3>Ý tưởng</h3>
+  <p id="yTuongText">
+    Ý tưởng thiết kế trang web trình chiếu tương tác cho toàn bộ bài dự thi được xây dựng theo định hướng hiện đại, trực quan và mang tính trải nghiệm cao, nhằm chuyển tải nội dung một cách sinh động, dễ tiếp cận nhưng vẫn bảo đảm tính chính trị, học thuật và trang trọng của một công trình nghiên cứu về truyền thống 80 năm của lực lượng An ninh nhân dân. Trang web không chỉ đơn thuần là nơi trình bày nội dung bài viết mà còn là một “không gian số” tái hiện lại hành trình lịch sử, giúp người xem có thể tương tác, khám phá và cảm nhận sâu sắc hơn về những chặng đường phát triển của lực lượng.
+Về cấu trúc, trang web được thiết kế thành các phân khu rõ ràng. Mỗi phần được trình bày dưới dạng các “slide” hoặc “section” cuộn dọc (scroll storytelling), kết hợp giữa văn bản, hình ảnh tư liệu, sơ đồ và các hiệu ứng chuyển động nhẹ nhàng nhằm tăng tính hấp dẫn. Đặc biệt, các mốc lịch sử quan trọng sẽ được thể hiện dưới dạng timeline tương tác, cho phép người xem nhấp vào từng giai đoạn để tìm hiểu chi tiết về các sự kiện, chiến công tiêu biểu.
+Bên cạnh đó, trang web tích hợp các yếu tố đa phương tiện như ảnh, video, infographic, giúp nội dung không bị khô cứng mà trở nên trực quan hơn. Một số phần có thể thiết kế dạng câu hỏi – đáp tương tác hoặc trắc nghiệm ngắn để người xem tự kiểm tra kiến thức, qua đó tăng tính tham gia và ghi nhớ nội dung.
+Về giao diện, trang web sử dụng tông màu chủ đạo trang nghiêm (đỏ, vàng, xanh đậm), kết hợp biểu tượng, hình ảnh đặc trưng của lực lượng Công an nhân dân, bảo đảm tính nhận diện và phù hợp với chủ đề chính trị. Bố cục được tối ưu cho cả máy tính và thiết bị di động, giúp người xem dễ dàng truy cập ở mọi nền tảng.
+Tổng thể, trang web trình chiếu tương tác không chỉ là công cụ hỗ trợ trình bày bài dự thi mà còn là một sản phẩm ứng dụng công nghệ, thể hiện tư duy đổi mới, sáng tạo của nhóm tác giả, góp phần lan tỏa giá trị lịch sử và ý nghĩa thời đại của truyền thống lực lượng An ninh nhân dân trong môi trường số hiện nay.
+  </p>
+  <button class="read-btn" onclick="docNoiDung('yTuongText')">🔊 Đọc</button>
+</div>
+
+<!-- CONTENT 3 -->
+<div id="gioithieu3" class="content">
+  <h3>Mục tiêu & định hướng</h3>
+
+  <p id="mucdichText" style="display:none;">Tham gia cuộc thi “Tìm hiểu truyền thống 80 năm xây dựng, chiến đấu và trưởng thành của lực lượng An ninh nhân dân” không chỉ là một hoạt động mang ý nghĩa truyền thống lịch sử, mà còn là dịp đặc biệt để mỗi cán bộ, học viên lực lượng Công an nhân dân nhìn lại chặng đường lịch sử vẻ vang của lực lượng, từ đó củng cố niềm tin, nâng cao nhận thức và xác định rõ hơn trách nhiệm của bản thân trong sự nghiệp bảo vệ an ninh quốc gia trong tình hình mới. Đối với nhóm tác giả – là những học viên đang học tập, rèn luyện tại Học viện Kỹ thuật và Công nghệ an ninh – việc tham gia cuộc thi còn mang ý nghĩa sâu sắc hơn khi gắn liền với quá trình hình thành lý tưởng, bản lĩnh chính trị và định hướng nghề nghiệp trong tương lai.
+Trước hết, mục đích quan trọng của bài dự thi là góp phần tìm hiểu, hệ thống hóa và làm sáng tỏ những giá trị truyền thống tốt đẹp của lực lượng An ninh nhân dân Việt Nam trong suốt 80 năm qua. Thông qua việc nghiên cứu các giai đoạn lịch sử, các chiến công tiêu biểu và những đóng góp to lớn của lực lượng trong sự nghiệp cách mạng, nhóm tác giả mong muốn tái hiện một cách sinh động, toàn diện bức tranh về quá trình hình thành, phát triển và trưởng thành của lực lượng An ninh nhân dân. Đây không chỉ là sự tri ân đối với các thế hệ đi trước đã cống hiến, hy sinh vì độc lập, tự do của Tổ quốc, mà còn là cơ sở để khẳng định vị trí, vai trò đặc biệt quan trọng của công tác an ninh trong sự nghiệp xây dựng và bảo vệ đất nước.
+Bên cạnh đó, bài dự thi hướng tới mục tiêu nâng cao nhận thức chính trị, tư tưởng cho bản thân mỗi thành viên trong nhóm cũng như các học viên khác trong lực lượng. Trong bối cảnh hiện nay, khi tình hình an ninh quốc gia ngày càng diễn biến phức tạp với sự xuất hiện của nhiều loại hình tội phạm mới, đặc biệt là trên không gian mạng, việc hiểu rõ truyền thống, bản lĩnh và phương pháp công tác của lực lượng An ninh nhân dân là điều hết sức cần thiết. Qua quá trình nghiên cứu và thực hiện bài viết, nhóm tác giả có điều kiện tiếp cận sâu hơn với những bài học kinh nghiệm quý báu, từ đó nâng cao khả năng tư duy, phân tích và vận dụng vào thực tiễn công tác sau này.
+Một mục đích quan trọng khác của việc tham gia cuộc thi là góp phần khẳng định vai trò của Nhân dân trong sự nghiệp bảo vệ an ninh Tổ quốc. Thông qua việc nghiên cứu câu hỏi về trách nhiệm, nghĩa vụ và quyền lợi của Nhân dân, nhóm tác giả nhận thức rõ rằng bảo vệ an ninh quốc gia không phải là nhiệm vụ riêng của lực lượng Công an mà là sự nghiệp của toàn dân. Việc đề xuất các giải pháp nhằm phát huy vai trò của Nhân dân trong bối cảnh mới không chỉ có ý nghĩa lý luận mà còn mang giá trị thực tiễn sâu sắc, góp phần xây dựng “thế trận an ninh nhân dân” vững chắc – nền tảng quan trọng bảo đảm ổn định chính trị và phát triển bền vững đất nước.
+Đồng thời, thông qua bài dự thi, nhóm tác giả mong muốn thể hiện tinh thần trách nhiệm, ý thức học tập và sự chủ động nghiên cứu khoa học của học viên trong các học viện, trường Công an nhân dân. Đây là cơ hội để rèn luyện kỹ năng thu thập, xử lý thông tin, kỹ năng viết và trình bày một vấn đề mang tính khoa học, logic và có chiều sâu. Quá trình thực hiện bài viết cũng giúp các thành viên trong nhóm nâng cao tinh thần làm việc tập thể, khả năng phối hợp và chia sẻ kiến thức, từ đó góp phần hoàn thiện bản thân cả về chuyên môn lẫn kỹ năng mềm.
+Ngoài ra, bài dự thi còn là dịp để nhóm tác giả liên hệ, soi chiếu với trách nhiệm của bản thân trong tương lai. Là những học viên được đào tạo trong lĩnh vực kỹ thuật và công nghệ an ninh, nhóm nhận thức rõ vai trò tiên phong của mình trong bảo vệ an ninh quốc gia trên không gian mạng – một lĩnh vực mới, phức tạp nhưng hết sức quan trọng. Việc tham gia cuộc thi giúp mỗi cá nhân xác định rõ hơn mục tiêu phấn đấu, không ngừng học tập, rèn luyện để đáp ứng yêu cầu nhiệm vụ trong tình hình mới, xứng đáng với truyền thống vẻ vang của Lực lượng An ninh Nhân dân.</p>
+  <button class="read-btn"  
+  data-title="🔊 Nghe nội dung mục tiêu tham gia cuộc thi" 
+  onclick="docNoiDung('mucdichText', this)">
+  🔊 Nghe nội dung mục đích tham gia cuộc thi
+  </button></p>
+
+  <p id="thongdiepText" style="display:none;">Thông qua bài dự thi này, nhóm tác giả mong muốn gửi gắm một thông điệp xuyên suốt: truyền thống vẻ vang của lực lượng An ninh nhân dân là nền tảng tinh thần vững chắc, đồng thời là động lực để thế hệ hôm nay tiếp tục phấn đấu, đổi mới và sáng tạo trong sự nghiệp bảo vệ an ninh quốc gia.
+Trong bối cảnh tình hình thế giới và khu vực có nhiều biến động, đặc biệt là sự phát triển mạnh mẽ của khoa học công nghệ và không gian mạng, yêu cầu đặt ra đối với công tác bảo vệ an ninh quốc gia ngày càng cao và phức tạp. Điều đó đòi hỏi mỗi cán bộ, chiến sĩ Công an nhân dân, đặc biệt là thế hệ trẻ, phải không ngừng học tập, rèn luyện, nâng cao trình độ chuyên môn, giữ vững bản lĩnh chính trị và tinh thần trách nhiệm.
+Đồng thời, bài dự thi cũng nhấn mạnh vai trò to lớn của Nhân dân trong sự nghiệp bảo vệ an ninh Tổ quốc. Khi mỗi người dân đều có ý thức, trách nhiệm và tinh thần cảnh giác, khi “thế trận lòng dân” được củng cố vững chắc, thì đó chính là yếu tố quyết định bảo đảm thắng lợi trong công tác bảo vệ an ninh quốc gia.
+Với tinh thần đó, nhóm tác giả mong muốn góp phần nhỏ bé vào việc lan tỏa nhận thức, khơi dậy niềm tự hào và ý thức trách nhiệm trong mỗi cán bộ, chiến sĩ cũng như trong toàn xã hội. Đồng thời, đây cũng là lời khẳng định quyết tâm của thế hệ học viên Công an nhân dân hôm nay trong việc tiếp nối truyền thống, sẵn sàng cống hiến vì sự bình yên của Tổ quốc, vì cuộc sống hạnh phúc của Nhân dân.</p>
+  <button class="read-btn" 
+  data-title="🔊 Nghe nội dung thông điệp tham gia cuộc thi" 
+  onclick="docNoiDung('thongdiepText', this)">
+  🔊 Nghe nội dung thông điệp tham gia cuộc thi
+</button></p>
+
+  <p id="dinhhuongText" style="display:none;">(Định hướng)</p>
+  <button class="read-btn" 
+  data-title="🔊 Nghe nội dung định hướng tham gia cuộc thi" 
+  onclick="docNoiDung('dinhhuongText', this)">
+  🔊 Nghe nội dung định hướng tham gia cuộc thi
+</button></p>
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="go('index.html')">🏠 Trang chủ </button>
+  <button onclick="go('gioithieuchung.html')">📄 Thuyết minh bài dự thi</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi bài dự thi</button>
+  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
+  <button onclick="go('tracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
+  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
+  <button onclick="go('khuyennghi.html')">📎 Các ý kiến đóng góp</button>
+</div>
+
+<script>
+function go(link){
+  document.body.style.opacity="0";
+  setTimeout(()=>{window.location=link},300);
+}
+
+/* SHOW CONTENT + PROGRESS */
+function showContent(id, step){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
+
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.menu button')[step-1].classList.add('active');
+
+  document.getElementById('progressBar').style.width = (step/3)*100 + "%";
+}
+
+/* MUSIC */
+const music=document.getElementById('bg-music');
+let isPlaying=false;
+function toggleMusic(){
+  if(isPlaying){music.pause();}
+  else{music.play();}
+  isPlaying=!isPlaying;
+}
+
+let speaking=false;
+let currentUtterance=null;
+
+function docNoiDung(id, btn){
+  const text=document.getElementById(id).innerText;
+
+  if(!speaking){
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    currentUtterance.lang='vi-VN';
+
+    currentUtterance.onend=()=>{
+      speaking=false;
+      btn.innerText = btn.dataset.title;
+    };
+
+    speechSynthesis.speak(currentUtterance);
+    speaking=true;
+
+    btn.innerText="⏹ Dừng";
+  }else{
+    speechSynthesis.cancel();
+    speaking=false;
+
+    btn.innerText = btn.dataset.title;
+  }
+}
+</script>
+
+</body>
+</html>
