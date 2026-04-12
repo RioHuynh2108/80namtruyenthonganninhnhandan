@@ -210,16 +210,14 @@ body{
 
 <script>
 const videos = [
-  {id:"-T5fYRwLJAA", title:"Video tuyên truyền 1"},
-  {id:"dQw4w9WgXcQ", title:"Video tuyên truyền 2"},
-  {id:"3JZ_D3ELwOQ", title:"Video tuyên truyền 3"}
+  {id:"-T5fYRwLJAA", title:"Video tuyên truyền"}
 ];
 
 let current = 0;
-let autoPlayTimer = null;
 
 /* LOAD LIST */
 const list = document.getElementById("videoList");
+
 videos.forEach((v,i)=>{
   list.innerHTML += `
     <div class="video-item" onclick="playVideo(${i})">
@@ -241,7 +239,8 @@ function playVideo(index){
 
   setTimeout(()=>{
 
-  frame.src = "https://www.youtube.com/embed/-T5fYRwLJAA?autoplay=1&mute=1&controls=1&rel=0";
+    // ✅ BỎ mute để có tiếng
+    frame.src = "https://www.youtube.com/embed/" + videos[index].id + "?autoplay=1";
 
     document.getElementById("videoTitle").innerText = videos[index].title;
 
@@ -255,41 +254,53 @@ function playVideo(index){
     player.classList.add("fade-in");
 
   },200);
-
-  startAutoNext();
-}
-
-/* AUTO NEXT */
-function startAutoNext(){
-  clearTimeout(autoPlayTimer);
-  autoPlayTimer = setTimeout(()=> nextVideo(), 20000);
 }
 
 /* NEXT */
 function nextVideo(){
-  playVideo((current+1)%videos.length);
+  if(current < videos.length - 1){
+    playVideo(current + 1);
+  }else{
+    playVideo(0);
+  }
 }
 
 /* PREV */
 function prevVideo(){
-  playVideo((current-1+videos.length)%videos.length);
+  if(current > 0){
+    playVideo(current - 1);
+  }else{
+    playVideo(videos.length - 1);
+  }
 }
 
 /* SWIPE */
 let startX=0;
+
 document.addEventListener("touchstart",e=>{
   startX = e.touches[0].clientX;
 });
+
 document.addEventListener("touchend",e=>{
   let endX = e.changedTouches[0].clientX;
-  if(startX - endX > 50) nextVideo();
-  if(endX - startX > 50) prevVideo();
+
+  if(startX - endX > 50){
+    nextVideo();
+  }
+
+  if(endX - startX > 50){
+    prevVideo();
+  }
 });
 
 /* LOAD LAST */
 window.onload = ()=>{
   const saved = localStorage.getItem("videoIndex");
-  playVideo(saved ? parseInt(saved) : 0);
+  if(saved){
+    playVideo(parseInt(saved));
+  }else{
+    playVideo(0);
+  }
 };
 
 /* NAV */
