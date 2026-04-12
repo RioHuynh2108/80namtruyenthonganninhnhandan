@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🎥 Tư liệu tuyên truyền</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Be Vietnam Pro',sans-serif;
+  color:white;
+  background:#000;
+}
+
+/* VIDEO BACKGROUND */
+#video-background{
+  position:fixed;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+}
+
+/* OVERLAY */
+.overlay{
+  background:rgba(0,0,0,0.6);
+  min-height:100vh;
+  padding:15px;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:10px;
+}
+.header h1{
+  color:#FFD700;
+  font-size:1.5rem;
+}
+
+/* MARQUEE */
+.marquee{
+  overflow:hidden;
+  background:rgba(0,0,0,0.7);
+  padding:8px;
+  margin-bottom:10px;
+}
+.marquee span{
+  display:inline-block;
+  white-space:nowrap;
+  animation:marquee 12s linear infinite;
+  color:#FFD700;
+}
+@keyframes marquee{
+  from{transform:translateX(100%)}
+  to{transform:translateX(-100%)}
+}
+
+/* PLAYER */
+.player{
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* VIDEO */
+.player iframe{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  border:none;
+}
+
+/* OVERLAY TITLE */
+.video-overlay{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:15px;
+  background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+}
+.video-overlay h2{
+  color:#FFD700;
+  font-size:1.1rem;
+}
+
+/* CONTROLS */
+.controls{
+  position:absolute;
+  top:50%;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  transform:translateY(-50%);
+}
+.controls button{
+  background:rgba(0,0,0,0.6);
+  border:none;
+  color:white;
+  font-size:22px;
+  padding:10px;
+  cursor:pointer;
+  border-radius:50%;
+}
+
+/* LIST */
+.video-list{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:10px 0;
+  scroll-behavior:smooth;
+}
+.video-item{
+  min-width:150px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.video-item img{
+  width:100%;
+  border-radius:10px;
+}
+.video-item.active{
+  transform:scale(1.1);
+  border:2px solid #FFD700;
+  border-radius:10px;
+}
+
+/* ANIMATION */
+.fade-out{opacity:0;transform:scale(0.98)}
+.fade-in{opacity:1;transform:scale(1)}
+.player{transition:0.3s}
+
+/* NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+}
+.bottom-nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:0.75rem;
+}
+</style>
+</head>
+
+<body>
+
+<video id="video-background" autoplay loop muted playsinline>
+  <source src="videonen.mp4">
+</video>
+
+<div class="overlay">
+
+<div class="header">
+  <h1>🎥 TƯ LIỆU TUYÊN TRUYỀN</h1>
+</div>
+
+<div class="marquee">
+  <span>📢 Chọn video để xem - Vuốt để chuyển nhanh 📢</span>
+</div>
+
+<!-- PLAYER -->
+<div class="player" id="player">
+
+  <iframe id="mainVideo"></iframe>
+
+  <div class="video-overlay">
+    <h2 id="videoTitle"></h2>
+  </div>
+
+  <div class="controls">
+    <button onclick="prevVideo()">⏮</button>
+    <button onclick="nextVideo()">⏭</button>
+  </div>
+
+</div>
+
+<!-- LIST -->
+<div class="video-list" id="videoList"></div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="go('index.html')">🏠 Trang chủ </button>
+  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu bài dự thi</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi bài dự thi</button>
+  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
+  <button onclick="go('tracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
+  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
+  <button onclick="go('khuyennghi.html')">📎 Các ý kiến đóng góp</button>
+</div>
+
+<script>
+const videos = [
+  {id:"-T5fYRwLJAA", title:"Video tuyên truyền 1"},
+  {id:"dQw4w9WgXcQ", title:"Video tuyên truyền 2"},
+  {id:"3JZ_D3ELwOQ", title:"Video tuyên truyền 3"}
+];
+
+let current = 0;
+let autoPlayTimer = null;
+
+/* LOAD LIST */
+const list = document.getElementById("videoList");
+videos.forEach((v,i)=>{
+  list.innerHTML += `
+    <div class="video-item" onclick="playVideo(${i})">
+      <img src="https://img.youtube.com/vi/${v.id}/0.jpg">
+    </div>
+  `;
+});
+
+/* PLAY VIDEO */
+function playVideo(index){
+
+  current = index;
+  localStorage.setItem("videoIndex", index);
+
+  const player = document.getElementById("player");
+  const frame = document.getElementById("mainVideo");
+
+  player.classList.add("fade-out");
+
+  setTimeout(()=>{
+
+  frame.src = "https://www.youtube.com/embed/-T5fYRwLJAA?autoplay=1&mute=1&controls=1&rel=0";
+
+    document.getElementById("videoTitle").innerText = videos[index].title;
+
+    document.querySelectorAll(".video-item")
+      .forEach(v=>v.classList.remove("active"));
+
+    document.querySelectorAll(".video-item")[index]
+      .classList.add("active");
+
+    player.classList.remove("fade-out");
+    player.classList.add("fade-in");
+
+  },200);
+
+  startAutoNext();
+}
+
+/* AUTO NEXT */
+function startAutoNext(){
+  clearTimeout(autoPlayTimer);
+  autoPlayTimer = setTimeout(()=> nextVideo(), 20000);
+}
+
+/* NEXT */
+function nextVideo(){
+  playVideo((current+1)%videos.length);
+}
+
+/* PREV */
+function prevVideo(){
+  playVideo((current-1+videos.length)%videos.length);
+}
+
+/* SWIPE */
+let startX=0;
+document.addEventListener("touchstart",e=>{
+  startX = e.touches[0].clientX;
+});
+document.addEventListener("touchend",e=>{
+  let endX = e.changedTouches[0].clientX;
+  if(startX - endX > 50) nextVideo();
+  if(endX - startX > 50) prevVideo();
+});
+
+/* LOAD LAST */
+window.onload = ()=>{
+  const saved = localStorage.getItem("videoIndex");
+  playVideo(saved ? parseInt(saved) : 0);
+};
+
+/* NAV */
+function go(link){
+  document.body.style.opacity="0";
+  setTimeout(()=>{window.location=link},300);
+}
+</script>
+
+</body>
+</html>
