@@ -179,8 +179,8 @@ iframe{
 
 <!-- MENU -->
 <div class="menu">
-  <button onclick="openBook(1,this)">📘 Quyển 1</button>
-  <button onclick="openBook(2,this)">📘 Quyển 2</button>
+  <button onclick="openBook(1,this)">📘 Quyển 1 - 80 NĂM TRUYỀN THỐNG VẺ VÀ NHỮNG CHIẾN CÔNG TIÊU BIỂU CỦA LỰC AN NINH NHÂN DÂN VIỆT NAM</button>
+  <button onclick="openBook(2,this)">📘 Quyển 2 - XÂY DỰNG VÀ PHÁT HUY THẾ TRẬN AN NINH NHÂN DÂN TRONG TÌNH HÌNH MỚI</button>
 
 </div>
 
@@ -207,8 +207,8 @@ iframe{
 
 const links=[
 "",
-"https://online.fliphtml5.com/jkhsr/qpfo/",
-"https://online.fliphtml5.com/jkhsr/dpdx/"
+"https://online.fliphtml5.com/jkhsr/Q1-j1b4/",
+"https://online.fliphtml5.com/jkhsr/80-Q2-KHANH/"
 ];
 
 let currentBook = 0;
@@ -239,6 +239,7 @@ function openBook(num,btn){
 
   setTimeout(()=>{
     frame.src=links[num];
+    frame.setAttribute("loading","lazy");
     viewer.classList.add("active");
   },200);
 }
