@@ -210,89 +210,91 @@ body{
 
 <script>
 const videos = [
-  {id:"-T5fYRwLJAA", title:"Video tuyên truyền"}
+  {id:"-T5fYRwLJAA", title:"Video tuyên truyền 1"},
+  {id:"dQw4w9WgXcQ", title:"Video tuyên truyền 2"},
+  {id:"3JZ_D3ELwOQ", title:"Video tuyên truyền 3"}
 ];
 
 let current = 0;
+let autoPlayTimer = null;
 
-/* CHỜ DOM LOAD (tránh null) */
-window.addEventListener("DOMContentLoaded", () => {
-
-  /* LOAD LIST */
-  const list = document.getElementById("videoList");
-
-  videos.forEach((v,i)=>{
-    const div = document.createElement("div");
-    div.className = "video-item";
-
-    div.innerHTML = `
-      <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg">
-    `;
-
-    div.onclick = () => playVideo(i);
-
-    list.appendChild(div);
-  });
-
-  /* LOAD VIDEO */
-  const saved = localStorage.getItem("videoIndex");
-  playVideo(saved ? parseInt(saved) : 0);
+/* LOAD LIST */
+const list = document.getElementById("videoList");
+videos.forEach((v,i)=>{
+  list.innerHTML += `
+    <div class="video-item" onclick="playVideo(${i})">
+      <img src="https://img.youtube.com/vi/${v.id}/0.jpg">
+    </div>
+  `;
 });
 
-
-/* PLAY VIDEO (⚡ LOAD NGAY) */
+/* PLAY VIDEO */
 function playVideo(index){
-
-  if(index === current) return;
 
   current = index;
   localStorage.setItem("videoIndex", index);
 
+  const player = document.getElementById("player");
   const frame = document.getElementById("mainVideo");
 
-  frame.src = "https://www.youtube.com/embed/" + videos[index].id +
-              "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+  player.classList.add("fade-out");
 
-  document.getElementById("videoTitle").innerText = videos[index].title;
+  setTimeout(()=>{
 
-  document.querySelectorAll(".video-item")
-    .forEach(v=>v.classList.remove("active"));
+    frame.src = "https://www.youtube.com/embed/" + videos[index].id + "?autoplay=1";
 
-  document.querySelectorAll(".video-item")[index]
-    .classList.add("active");
+    document.getElementById("videoTitle").innerText = videos[index].title;
+
+    document.querySelectorAll(".video-item")
+      .forEach(v=>v.classList.remove("active"));
+
+    document.querySelectorAll(".video-item")[index]
+      .classList.add("active");
+
+    player.classList.remove("fade-out");
+    player.classList.add("fade-in");
+
+  },50);
+
+  startAutoNext();
 }
 
+/* AUTO NEXT */
+function startAutoNext(){
+  clearTimeout(autoPlayTimer);
+  autoPlayTimer = setTimeout(()=> nextVideo(), 20000);
+}
 
-/* NEXT / PREV */
+/* NEXT */
 function nextVideo(){
-  playVideo((current + 1) % videos.length);
+  playVideo((current+1)%videos.length);
 }
 
+/* PREV */
 function prevVideo(){
-  playVideo((current - 1 + videos.length) % videos.length);
+  playVideo((current-1+videos.length)%videos.length);
 }
 
-
-/* SWIPE MOBILE */
+/* SWIPE */
 let startX=0;
-
 document.addEventListener("touchstart",e=>{
   startX = e.touches[0].clientX;
 });
-
 document.addEventListener("touchend",e=>{
   let endX = e.changedTouches[0].clientX;
-  let delta = startX - endX;
-
-  if(Math.abs(delta) > 50){
-    delta > 0 ? nextVideo() : prevVideo();
-  }
+  if(startX - endX > 50) nextVideo();
+  if(endX - startX > 50) prevVideo();
 });
 
+/* LOAD LAST */
+window.onload = ()=>{
+  const saved = localStorage.getItem("videoIndex");
+  playVideo(saved ? parseInt(saved) : 0);
+};
 
 /* NAV */
 function go(link){
   document.body.style.opacity="0";
-  setTimeout(()=>{window.location=link},100);
+  setTimeout(()=>{window.location=link},300);
 }
 </script>
