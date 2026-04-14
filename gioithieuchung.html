@@ -183,7 +183,7 @@ body{
 <button class="music-btn" onclick="toggleMusic()">🔊</button>
 
 <div class="header">
-  <h1>📄 THUYẾT MINH BÀI DỰ THI</h1>
+  <h1>📄 GIỚI THIỆU BÀI DỰ THI</h1>
 </div>
 
 <!-- PROGRESS -->
@@ -212,14 +212,16 @@ body{
 <!-- CONTENT 2 -->
 <div id="gioithieu2" class="content">
   <h3>Ý tưởng</h3>
-  <p id="yTuongText">
-    Ý tưởng thiết kế trang web trình chiếu tương tác cho toàn bộ bài dự thi được xây dựng theo định hướng hiện đại, trực quan và mang tính trải nghiệm cao, nhằm chuyển tải nội dung một cách sinh động, dễ tiếp cận nhưng vẫn bảo đảm tính chính trị, học thuật và trang trọng của một công trình nghiên cứu về truyền thống 80 năm của lực lượng An ninh nhân dân. Trang web không chỉ đơn thuần là nơi trình bày nội dung bài viết mà còn là một “không gian số” tái hiện lại hành trình lịch sử, giúp người xem có thể tương tác, khám phá và cảm nhận sâu sắc hơn về những chặng đường phát triển của lực lượng.
+  <p id="yTuongText" style="display:none;">Ý tưởng thiết kế trang web trình chiếu tương tác cho toàn bộ bài dự thi được xây dựng theo định hướng hiện đại, trực quan và mang tính trải nghiệm cao, nhằm chuyển tải nội dung một cách sinh động, dễ tiếp cận nhưng vẫn bảo đảm tính chính trị, học thuật và trang trọng của một công trình nghiên cứu về truyền thống 80 năm của lực lượng An ninh nhân dân. Trang web không chỉ đơn thuần là nơi trình bày nội dung bài viết mà còn là một “không gian số” tái hiện lại hành trình lịch sử, giúp người xem có thể tương tác, khám phá và cảm nhận sâu sắc hơn về những chặng đường phát triển của lực lượng.
 Về cấu trúc, trang web được thiết kế thành các phân khu rõ ràng. Mỗi phần được trình bày dưới dạng các “slide” hoặc “section” cuộn dọc (scroll storytelling), kết hợp giữa văn bản, hình ảnh tư liệu, sơ đồ và các hiệu ứng chuyển động nhẹ nhàng nhằm tăng tính hấp dẫn. Đặc biệt, các mốc lịch sử quan trọng sẽ được thể hiện dưới dạng timeline tương tác, cho phép người xem nhấp vào từng giai đoạn để tìm hiểu chi tiết về các sự kiện, chiến công tiêu biểu.
 Bên cạnh đó, trang web tích hợp các yếu tố đa phương tiện như ảnh, video, infographic, giúp nội dung không bị khô cứng mà trở nên trực quan hơn. Một số phần có thể thiết kế dạng câu hỏi – đáp tương tác hoặc trắc nghiệm ngắn để người xem tự kiểm tra kiến thức, qua đó tăng tính tham gia và ghi nhớ nội dung.
 Về giao diện, trang web sử dụng tông màu chủ đạo trang nghiêm (đỏ, vàng, xanh đậm), kết hợp biểu tượng, hình ảnh đặc trưng của lực lượng Công an nhân dân, bảo đảm tính nhận diện và phù hợp với chủ đề chính trị. Bố cục được tối ưu cho cả máy tính và thiết bị di động, giúp người xem dễ dàng truy cập ở mọi nền tảng.
 Tổng thể, trang web trình chiếu tương tác không chỉ là công cụ hỗ trợ trình bày bài dự thi mà còn là một sản phẩm ứng dụng công nghệ, thể hiện tư duy đổi mới, sáng tạo của nhóm tác giả, góp phần lan tỏa giá trị lịch sử và ý nghĩa thời đại của truyền thống lực lượng An ninh nhân dân trong môi trường số hiện nay.
-  </p>
-  <button class="read-btn" onclick="docNoiDung('yTuongText')">🔊 Đọc</button>
+ <button class="read-btn"  
+  data-title="🔊 Nghe nội dung ý tưởng tham gia cuộc thi" 
+  onclick="docNoiDung('yTuongText', this)">
+  🔊 Nghe nội dung ý tưởng tham gia cuộc thi
+  </button></p></p>
 </div>
 
 <!-- CONTENT 3 -->
@@ -262,8 +264,8 @@ Với tinh thần đó, nhóm tác giả mong muốn góp phần nhỏ bé vào 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <button onclick="go('index.html')">🏠 Trang chủ </button>
-  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu bài dự thi</button>
-  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi dự thi</button>
+  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
   <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
   <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
   <button onclick="go('tracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
