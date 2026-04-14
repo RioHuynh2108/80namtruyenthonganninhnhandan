@@ -216,14 +216,13 @@ const videos = [
 ];
 
 let current = 0;
-let autoPlayTimer = null;
 
 /* LOAD LIST */
 const list = document.getElementById("videoList");
 videos.forEach((v,i)=>{
   list.innerHTML += `
     <div class="video-item" onclick="playVideo(${i})">
-      <img src="https://img.youtube.com/vi/${v.id}/0.jpg">
+      <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg">
     </div>
   `;
 });
@@ -255,14 +254,6 @@ function playVideo(index){
     player.classList.add("fade-in");
 
   },50);
-
-  startAutoNext();
-}
-
-/* AUTO NEXT */
-function startAutoNext(){
-  clearTimeout(autoPlayTimer);
-  autoPlayTimer = setTimeout(()=> nextVideo(), 20000);
 }
 
 /* NEXT */
