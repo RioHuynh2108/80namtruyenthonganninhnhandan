@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game sút bóng vào gôn</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0a1f2e;
+  color:white;
+  text-align:center;
+  transition:0.3s;
+}
+
+/* MENU START */
+.start-menu{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#000c;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:100;
+}
+
+.start-box{
+  background:#111;
+  padding:30px;
+  border-radius:15px;
+}
+
+.start-box button{
+  display:block;
+  width:200px;
+  margin:10px auto;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.start{
+  background:#FFD700;
+}
+
+.exit{
+  background:#444;
+  color:white;
+}
+
+/* ===== GIỮ NGUYÊN CODE CŨ ===== */
+
+/* SÂN */
+.field{
+  position:relative;
+  width:100%;
+  height:300px;
+  background:linear-gradient(#1e7d32,#4caf50);
+  overflow:hidden;
+}
+
+.goal{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:200px;
+  height:100px;
+  border:4px solid white;
+  border-bottom:none;
+}
+
+.goalkeeper{
+  position:absolute;
+  top:40px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:40px;
+  transition:0.4s ease;
+  z-index:5;
+}
+
+.dive-left{ transform:translateX(-120px) scale(1.1); }
+.dive-right{ transform:translateX(60px) scale(1.1); }
+
+.ball{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  width:40px;
+  height:40px;
+  background:white;
+  border-radius:50%;
+  transform:translateX(-50%);
+  transition:0.6s ease;
+}
+
+.player{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:40px;
+}
+
+.question{ margin:15px; font-size:18px; }
+
+.answers button{
+  display:block;
+  width:90%;
+  margin:8px auto;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#333;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.answers button:hover{
+  background:#FFD700;
+  color:black;
+}
+
+.score{
+  margin:10px;
+  font-size:18px;
+  color:#FFD700;
+}
+
+.result{
+  font-size:20px;
+  margin-top:20px;
+}
+
+.goal-effect{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:30px;
+  color:#FFD700;
+  opacity:0;
+  transition:0.5s;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div class="start-menu" id="menu">
+  <div class="start-box">
+    <h2>⚽ GAME SÚT BÓNG</h2>
+    <button class="start" onclick="startGame()">▶️ Bắt đầu</button>
+    <button class="exit" onclick="exitGame()">❌ Thoát</button>
+  </div>
+</div>
+<!-- MENU KẾT THÚC -->
+<div class="start-menu" id="endMenu" style="display:none;">
+  <div class="start-box">
+    <h2>🎉 KẾT THÚC</h2>
+    <p id="finalScore"></p>
+    <button class="start" onclick="restartGame()">🔄 Chơi lại</button>
+    <button class="exit" onclick="exitGame()">❌ Thoát</button>
+  </div>
+</div>
+<h2>⚽ Game sút bóng vào gôn</h2>
+
+<div class="score">Điểm: <span id="score">0</span>/10</div>
+
+<div class="field">
+  <div class="goal"></div>
+  <div class="goalkeeper" id="keeper">🧍‍♂️</div>
+  <div class="ball" id="ball"></div>
+  <div class="player">🧍‍♂️</div>
+  <div class="goal-effect" id="effect"></div>
+</div>
+
+<div class="question" id="question"></div>
+<div class="answers" id="answers"></div>
+<div class="result" id="result"></div>
+
+<script>
+const questions = [
+  {q:"Lực lượng ANND ra đời năm nào?",a:["1945","1946","1954","1975"],correct:0},
+  {q:"Ngày truyền thống ANND?",a:["19/8","22/12","30/4","2/9"],correct:0},
+  {q:"Ai là lãnh đạo đầu tiên?",a:["Hồ Chí Minh","Trần Quốc Hoàn","Phạm Văn Đồng","Võ Nguyên Giáp"],correct:1},
+  {q:"ANND thuộc lực lượng nào?",a:["Quân đội","Công an","Dân quân","Biên phòng"],correct:1},
+  {q:"Nhiệm vụ chính?",a:["Bảo vệ an ninh","Kinh tế","Y tế","Giáo dục"],correct:0},
+  {q:"Thế trận gì quan trọng?",a:["Nhân dân","Kinh tế","Quốc tế","Quân sự"],correct:0},
+  {q:"Công nghệ hiện nay?",a:["AI","Nông nghiệp","Thủ công","In ấn"],correct:0},
+  {q:"Không gian nào mới?",a:["Mạng","Biển","Rừng","Núi"],correct:0},
+  {q:"Ai tham gia bảo vệ?",a:["Nhân dân","Chỉ công an","Chỉ quân đội","Không ai"],correct:0},
+  {q:"Vai trò ANND?",a:["Trung tâm bảo vệ","Phụ trợ","Không quan trọng","Không có"],correct:0}
+];
+
+let index = 0;
+let score = 0;
+
+const qEl = document.getElementById("question");
+const aEl = document.getElementById("answers");
+const ball = document.getElementById("ball");
+const keeper = document.getElementById("keeper");
+const effect = document.getElementById("effect");
+
+/* START GAME */
+function startGame(){
+  document.getElementById("menu").style.display="none";
+}
+function restartGame(){
+  // reset dữ liệu
+  index = 0;
+  score = 0;
+
+  // reset UI
+  document.getElementById("score").innerText = 0;
+  document.getElementById("result").innerText = "";
+  effect.style.opacity = 0;
+
+  // ⚡ KHÔNG hiện lại menu
+  document.getElementById("menu").style.display = "none";
+
+  // load lại câu hỏi ngay
+  loadQuestion();
+}
+/* EXIT GAME */
+function exitGame(){
+  document.body.style.opacity="0";
+  setTimeout(()=>{
+    window.location.href="trochoitracnghiem.html";
+  },300);
+}
+
+function loadQuestion(){
+  const q = questions[index];
+  qEl.innerText = q.q;
+  aEl.innerHTML = "";
+
+  q.a.forEach((ans,i)=>{
+    aEl.innerHTML += `<button onclick="shoot(${i})">${ans}</button>`;
+  });
+}
+
+function moveKeeper(){
+  keeper.classList.remove("dive-left","dive-right");
+  Math.random()<0.5 ? keeper.classList.add("dive-left")
+                    : keeper.classList.add("dive-right");
+}
+
+function shoot(answer){
+  const correct = questions[index].correct;
+  moveKeeper();
+
+  if(answer === correct){
+    ball.style.transform = "translate(-50%, -200px)";
+    effect.innerText = "GOAL!!! ⚽";
+    score++;
+    document.getElementById("score").innerText = score;
+  }else{
+    ball.style.transform = "translate(-150%, -150px)";
+    effect.innerText = "MISS ❌";
+  }
+
+  effect.style.opacity = 1;
+
+  setTimeout(()=>{
+    nextQuestion();
+    resetField();
+  },1200);
+}
+
+function resetField(){
+  ball.style.transform = "translateX(-50%)";
+  keeper.classList.remove("dive-left","dive-right");
+  effect.style.opacity = 0;
+}
+
+function nextQuestion(){
+  index++;
+  index < questions.length ? loadQuestion() : endGame();
+}
+
+function endGame(){
+  qEl.innerText = "🎉 KẾT THÚC!";
+  aEl.innerHTML = "";
+
+  document.getElementById("result").innerText =
+    "Bạn ghi được " + score + "/10 bàn ⚽";
+
+  effect.innerText = score>=8 ? "🏆 Xuất sắc!"
+                   : score>=5 ? "👍 Khá!"
+                   : "💪 Cố gắng!";
+  effect.style.opacity = 1;
+
+  // 👉 hiện menu kết thúc
+  document.getElementById("menu").style.display = "flex";
+
+  // 👉 đổi nội dung menu
+  document.querySelector(".start-box").innerHTML = `
+    <h2>🏁 KẾT THÚC</h2>
+    <p>Điểm: ${score}/10</p>
+    <button class="start" onclick="restartGame()">🔄 Chơi lại</button>
+    <button class="exit" onclick="exitGame()">❌ Thoát</button>
+  `;
+}
+loadQuestion();
+
+</script>
+
+</body>
+</html>
