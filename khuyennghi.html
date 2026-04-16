@@ -20,7 +20,7 @@ body {
 /* FORM */
 .form-box{
   background: rgba(0,0,0,0.7);
-  padding: 20px;
+  padding: 60px;
   margin: 30px auto;
   border-radius: 12px;
   max-width: 500px;
@@ -144,6 +144,22 @@ body {
     filter:brightness(0.7); /* đỡ chói + đỡ lag cảm giác */
   }
 }
+/* NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+}
+.bottom-nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:0.75rem;
+}
 </style>
 </head>
 
@@ -183,16 +199,16 @@ body {
 
 </div>
 
-<!-- MENU -->
-<div class="menu">
-  <button onclick="window.location.href='index.html'">🏠 Trang chủ</button>
-      <button onclick="window.location.href='gioithieuchung.html'">📄 Giới thiệu bài dự thi</button>
-      <button onclick="window.location.href='traloicauhoi.html'">📌 Trả lời câu hỏi bài dự thi</button>
-      <button onclick="window.location.href='vanbanluat.html'">📚 Tiến trình lịch sử</button>
-      <button onclick="window.location.href='hinhanh.html'">🎥 Tư liệu tuyên truyền</button>
-      <button onclick=window.location.href='tracnghiem.html'">🛡️ Trò chơi trắc nghiệm</button>
-      <button onclick="window.location.href='maqr.html'">🧠 Mã QR tài liệu</button>
-      <button onclick="window.location.href='khuyennghi.html'">📎 Các ý kiến đóng góp</button>
+<<!-- NAV -->
+<div class="bottom-nav">
+  <button onclick="go('index.html')">🏠 Trang chủ </button>
+  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
+  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
+  <button onclick="go('tracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
+  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
+  <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng góp</button>
 </div>
 
 <script>
