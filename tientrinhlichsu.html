@@ -196,7 +196,54 @@ body{
     text-align:left;
     margin-left:55%;
   }
+/* NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  overflow-x:auto; /* 👈 cho phép kéo ngang */
+  padding:10px 5px;
+  gap:10px;
+  z-index:999;
+}
 
+/* Ẩn thanh scroll cho đẹp */
+.bottom-nav::-webkit-scrollbar{
+  display:none;
+}
+
+.bottom-nav button{
+  flex:0 0 auto; /* 👈 không bị co */
+  background:none;
+  border:none;
+  color:white;
+  font-size:0.9rem;
+  padding:8px 10px;
+  white-space:nowrap; /* 👈 không xuống dòng */
+  border-radius:8px;
+  transition:0.2s;
+}
+
+/* Hover */
+.bottom-nav button:hover{
+  background:#FFD700;
+  color:black;
+}
+
+/* MOBILE tối ưu hơn */
+@media(max-width:768px){
+  .bottom-nav{
+    padding:8px 5px;
+  }
+
+  .bottom-nav button{
+    font-size:0.8rem;
+    padding:8px;
+  }
+}
 }
 </style>
 </head>
@@ -228,7 +275,17 @@ body{
   </div>
 
 </div>
-
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="go('index.html')">🏠 Trang chủ</button>
+  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
+  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
+  <button onclick="go('trochoitracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
+  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
+  <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng góp</button>
+</div>
 <!-- PANEL -->
 <div id="panel" class="panel">
 
