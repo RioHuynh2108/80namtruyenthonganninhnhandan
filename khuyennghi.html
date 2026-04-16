@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Ý kiến đóng góp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* FORM */
+.form-box{
+  background: rgba(0,0,0,0.7);
+  padding: 20px;
+  margin: 30px auto;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.form-box h2{
+  text-align:center;
+  color:#FFD700;
+}
+
+.form-box input,
+.form-box textarea{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+}
+
+.form-box textarea{
+  min-height:120px;
+}
+
+.form-box button{
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  background:#FFD700;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+#msg{
+  text-align:center;
+  margin-top:10px;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.menu button {
+  font-size: 1em;
+  padding: 12px;
+  background-color: #222;
+  color: #fff;
+  border: 2px solid #4CAF50;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* VIDEO */
+#video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events:none;
+}
+/* MOBILE FULL OPTIMIZE */
+@media screen and (max-width: 768px){
+
+  body{
+    padding:10px;
+  }
+
+  /* TITLE */
+  .animated-title{
+    padding:20px 10px !important;
+  }
+
+  .animated-title h1{
+    font-size:1.4em !important;
+  }
+
+  .animated-title h2{
+    font-size:1.1em !important;
+  }
+
+  /* LOGO */
+  .animated-title img{
+    position:static !important;
+    height:80px !important;
+    margin-bottom:10px;
+  }
+
+  /* MENU BUTTON */
+  .menu button{
+    width:95%;
+    font-size:1rem;
+    padding:14px;
+  }
+
+  /* FORM INPUT (rất quan trọng) */
+  input, textarea{
+    width:100%;
+    font-size:16px;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:none;
+  }
+
+  textarea{
+    min-height:120px;
+  }
+
+  /* VIDEO giảm tải */
+  #video-background{
+    object-fit:cover;
+    filter:brightness(0.7); /* đỡ chói + đỡ lag cảm giác */
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<video id="video-background" autoplay loop muted>
+  <source src="videonen.mp4">
+</video>
+
+<!-- NHẠC -->
+<audio id="bg-music" loop>
+  <source src="nhacnen.mp3">
+</audio>
+
+<div style="position: fixed; top: 20px; right: 20px;">
+  <button onclick="toggleMusic()">🔊 Nhạc</button>
+</div>
+
+<!-- TIÊU ĐỀ -->
+<div style="background: rgba(0,0,0,0.6); padding:20px; margin-top:20px; border-radius:10px; text-align:center;">
+  <h1 style="color:#FFD700">📎 Ý KIẾN ĐÓNG GÓP</h1>
+</div>
+
+<!-- FORM -->
+<div class="form-box">
+
+  <h2>Gửi ý kiến</h2>
+
+  <input type="text" id="hoten" placeholder="Họ và tên (không bắt buộc)">
+  <input type="text" id="donvi" placeholder="Đơn vị (không bắt buộc)">
+  <textarea id="ykien" placeholder="Nhập ý kiến đóng góp (bắt buộc)"></textarea>
+
+  <button onclick="submitForm()">Gửi ý kiến</button>
+
+  <p id="msg"></p>
+
+</div>
+
+<!-- MENU -->
+<div class="menu">
+  <button onclick="window.location.href='index.html'">🏠 Trang chủ</button>
+      <button onclick="window.location.href='gioithieuchung.html'">📄 Giới thiệu bài dự thi</button>
+      <button onclick="window.location.href='traloicauhoi.html'">📌 Trả lời câu hỏi bài dự thi</button>
+      <button onclick="window.location.href='vanbanluat.html'">📚 Tiến trình lịch sử</button>
+      <button onclick="window.location.href='hinhanh.html'">🎥 Tư liệu tuyên truyền</button>
+      <button onclick=window.location.href='tracnghiem.html'">🛡️ Trò chơi trắc nghiệm</button>
+      <button onclick="window.location.href='maqr.html'">🧠 Mã QR tài liệu</button>
+      <button onclick="window.location.href='khuyennghi.html'">📎 Các ý kiến đóng góp</button>
+</div>
+
+<script>
+const music = document.getElementById('bg-music');
+let isPlaying = false;
+
+function toggleMusic(){
+  if(isPlaying){
+    music.pause();
+  }else{
+    music.play();
+  }
+  isPlaying = !isPlaying;
+}
+
+/* GỬI GOOGLE SHEET */
+async function submitForm(){
+  let hoten = document.getElementById("hoten").value;
+  let donvi = document.getElementById("donvi").value;
+  let ykien = document.getElementById("ykien").value.trim();
+
+  if(ykien === ""){
+    document.getElementById("msg").innerText = "⚠️ Bạn phải nhập ý kiến!";
+    return;
+  }
+
+  document.getElementById("msg").innerText = "⏳ Đang gửi...";
+
+  try{
+    await fetch("https://script.google.com/macros/s/AKfycbz5AqXVMeuuR4HxJXQE1gp7Spcs5tzbOnukz33tMqXlNymHPBYaEpTVkWE5vkbJvvpP/exec", {
+      method: "POST",
+      body: JSON.stringify({hoten, donvi, ykien}),
+      mode: "no-cors"
+    });
+
+    document.getElementById("msg").innerText = "✅ Gửi thành công!";
+    
+    document.getElementById("hoten").value = "";
+    document.getElementById("donvi").value = "";
+    document.getElementById("ykien").value = "";
+
+  }catch(e){
+    document.getElementById("msg").innerText = "❌ Lỗi gửi!";
+  }
+}
+
+/* NAV */
+function go(link){
+  window.location = link;
+}
+</script>
+
+</body>
+</html>
