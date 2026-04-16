@@ -137,24 +137,66 @@ body{
   display:block;
 }
 
-/* MOBILE */
+/* MOBILE ZIGZAG */
 @media(max-width:768px){
+
   .timeline{
     flex-direction:column;
     align-items:center;
+    width:95%;
   }
 
+  /* TRỤC DỌC GIỮA */
   .timeline::before{
     left:50%;
+    top:0;
     width:4px;
     height:100%;
   }
 
+  /* ITEM */
   .item{
-    margin:30px 0;
+    width:100%;
+    display:flex;
+    align-items:center;
+    margin:25px 0;
+    position:relative;
   }
 
- 
+  /* DOT nằm giữa trục */
+  .dot{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    margin:0;
+  }
+
+  /* BOX */
+  .box{
+    width:45%;
+    min-width:auto;
+  }
+
+  /* SO LE TRÁI */
+  .item:nth-child(odd){
+    justify-content:flex-start;
+  }
+
+  .item:nth-child(odd) .box{
+    text-align:right;
+    margin-right:55%;
+  }
+
+  /* SO LE PHẢI */
+  .item:nth-child(even){
+    justify-content:flex-end;
+  }
+
+  .item:nth-child(even) .box{
+    text-align:left;
+    margin-left:55%;
+  }
+
 }
 </style>
 </head>
