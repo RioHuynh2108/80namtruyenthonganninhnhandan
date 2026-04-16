@@ -11,6 +11,7 @@ body{
   font-family:'Segoe UI';
   background:#0a0a0a;
   color:white;
+  padding-bottom:80px; /* 👈 cực quan trọng */
 }
 
 /* TITLE */
@@ -146,7 +147,6 @@ body{
     width:95%;
   }
 
-  /* TRỤC DỌC GIỮA */
   .timeline::before{
     left:50%;
     top:0;
@@ -154,7 +154,6 @@ body{
     height:100%;
   }
 
-  /* ITEM */
   .item{
     width:100%;
     display:flex;
@@ -163,7 +162,6 @@ body{
     position:relative;
   }
 
-  /* DOT nằm giữa trục */
   .dot{
     position:absolute;
     left:50%;
@@ -171,13 +169,11 @@ body{
     margin:0;
   }
 
-  /* BOX */
   .box{
     width:45%;
     min-width:auto;
   }
 
-  /* SO LE TRÁI */
   .item:nth-child(odd){
     justify-content:flex-start;
   }
@@ -187,7 +183,6 @@ body{
     margin-right:55%;
   }
 
-  /* SO LE PHẢI */
   .item:nth-child(even){
     justify-content:flex-end;
   }
@@ -196,6 +191,8 @@ body{
     text-align:left;
     margin-left:55%;
   }
+}
+
 /* NAV */
 .bottom-nav{
   position:fixed;
@@ -205,37 +202,19 @@ body{
   display:flex;
   justify-content:space-around;
   padding:16px;
+  z-index:999; /* 👈 thêm */
 }
 
-/* Ẩn thanh scroll cho đẹp */
-.bottom-nav::-webkit-scrollbar{
-  display:none;
-}
-
-.bottom-nav button{
-  background:none;
-  border:none;
-  color:white;
-  font-size:1.1rem;
-}
-
-/* Hover */
-.bottom-nav button:hover{
-  background:#FFD700;
-  color:black;
-}
-
-/* MOBILE tối ưu hơn */
+/* MOBILE NAV */
 @media(max-width:768px){
   .bottom-nav{
-    padding:8px 5px;
+    padding:16px 5px;
   }
 
   .bottom-nav button{
-    font-size:0.8rem;
-    padding:8px;
+    font-size:1.1rem;
+    padding:10px;
   }
-}
 }
 </style>
 </head>
