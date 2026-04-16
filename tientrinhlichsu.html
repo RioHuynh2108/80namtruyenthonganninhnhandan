@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline ngang</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI';
+  background:#0a0a0a;
+  color:white;
+}
+
+/* TITLE */
+.title{
+  text-align:center;
+  padding:20px;
+  font-size:24px;
+  color:#FFD700;
+}
+
+/* TIMELINE */
+.timeline{
+  position:relative;
+  width:90%;
+  margin:80px auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start; /* 👈 cho item nằm dưới trục */
+}
+
+/* TRỤC NGANG */
+.timeline::before{
+  content:'';
+  position:absolute;
+  top:0; /* 👈 đưa trục lên trên */
+  left:0;
+  width:100%;
+  height:4px;
+  background:linear-gradient(to right, #FFD700, transparent);
+}
+
+/* ITEM */
+.item{
+  position:relative;
+  text-align:center;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* DOT */
+.dot{
+  width:18px;
+  height:18px;
+  background:#FFD700;
+  border-radius:50%;
+  box-shadow:0 0 10px #FFD700;
+  margin-top:-9px; /* 👈 kéo dot dính vào trục */
+}
+
+
+
+/* BOX */
+.box{
+  margin-top:10px;
+  background:rgba(255,255,255,0.05);
+  padding:10px;
+  border-radius:10px;
+  border:2px solid rgba(255,215,0,0.3);
+  transition:0.3s;
+  min-width:100px;
+}
+
+.box:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 15px #FFD700;
+}
+
+/* PANEL */
+.panel{
+  position:fixed;
+  bottom:-100%;
+  left:0;
+  width:100%;
+  height:75%;
+  background:#111;
+  border-top:3px solid #FFD700;
+  transition:0.5s;
+  padding:20px;
+  overflow:auto;
+}
+
+.panel.active{
+  bottom:0;
+}
+
+/* CLOSE */
+.close{
+  position:absolute;
+  top:10px;
+  right:20px;
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* TAB */
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-top:30px;
+}
+
+.tabs button{
+  padding:8px 15px;
+  border:none;
+  background:#333;
+  color:white;
+  cursor:pointer;
+}
+
+.tabs button.active{
+  background:#FFD700;
+  color:#000;
+}
+
+/* CONTENT */
+.tab-content{
+  display:none;
+  margin-top:15px;
+}
+
+.tab-content.active{
+  display:block;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .timeline{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .timeline::before{
+    left:50%;
+    width:4px;
+    height:100%;
+  }
+
+  .item{
+    margin:30px 0;
+  }
+
+ 
+}
+</style>
+</head>
+
+<body>
+
+<div class="title">🏛️ CÁC GIAI ĐOẠN CÁCH MẠNG CỦA LỰC LƯỢNG AN NINH NHÂN DÂN</div>
+
+<div class="timeline">
+
+  <div class="item" onclick="openPanel(4)">
+    <div class="dot"></div>
+    <div class="box">1945 - 1954</div>
+  </div>
+
+  <div class="item" onclick="openPanel(3)">
+    <div class="dot"></div>
+    <div class="box">1954 - 1975</div>
+  </div>
+
+  <div class="item" onclick="openPanel(2)">
+    <div class="dot"></div>
+    <div class="box">1975 - 1986</div>
+  </div>
+
+  <div class="item" onclick="openPanel(1)">
+    <div class="dot"></div>
+    <div class="box">1986 - nay</div>
+  </div>
+
+</div>
+
+<!-- PANEL -->
+<div id="panel" class="panel">
+
+  <div class="close" onclick="closePanel()">✖</div>
+
+  <div class="tabs">
+    <button onclick="showTab('info')" class="active">Bối cảnh lịch sử</button>
+    <button onclick="showTab('battle')">Chiến công tiêu biểu</button>
+    <button onclick="showTab('person')">Nhân vật lịch sử</button> <!-- 👈 thêm -->
+  </div>
+
+  <div id="info" class="tab-content active"></div>
+  <div id="battle" class="tab-content"></div>
+  <div id="person" class="tab-content"></div> <!-- 👈 thêm -->
+
+</div>
+
+<script>
+function openPanel(id){
+  let panel = document.getElementById("panel");
+  panel.classList.add("active");
+
+  let info = "";
+  let battle = "";
+  let person = ""; // 👈 thêm
+
+  if(id==1){
+    info = "1945–1954: Kháng chiến chống Pháp.";
+    battle = "<ul><li>Việt Bắc</li><li>Biên giới</li><li>Điện Biên Phủ</li></ul>";
+    person = "<ul><li>Hồ Chí Minh</li><li>Võ Nguyên Giáp</li></ul>";
+  }
+
+  if(id==2){
+    info = "1954–1975: Kháng chiến chống Mỹ.";
+    battle = "<ul><li>Đồng khởi</li><li>Ấp Bắc</li><li>Chiến dịch Hồ Chí Minh</li></ul>";
+    person = "<ul><li>Nguyễn Văn Trỗi</li><li>Tố Hữu</li></ul>";
+  }
+
+  if(id==3){
+    info = "1975–1986: Xây dựng đất nước.";
+    battle = "<ul><li>Bảo vệ biên giới</li></ul>";
+    person = "<ul><li>Lê Duẩn</li><li>Phạm Văn Đồng</li></ul>";
+  }
+
+  if(id==4){
+    info = "1986–nay: Đổi mới, hội nhập.";
+    battle = "<ul><li>Đổi mới</li><li>Gia nhập ASEAN</li></ul>";
+    person = "<ul><li>Nguyễn Văn Linh</li><li>Võ Văn Kiệt</li></ul>";
+  }
+
+  document.getElementById("info").innerHTML = info;
+  document.getElementById("battle").innerHTML = battle;
+  document.getElementById("person").innerHTML = person; // 👈 thêm
+
+  showTab('info');
+}
+
+function closePanel(){
+  document.getElementById("panel").classList.remove("active");
+}
+
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(e=>e.classList.remove('active'));
+
+  document.getElementById(tab).classList.add('active');
+
+  let btns = document.querySelectorAll('.tabs button');
+  if(tab === 'info') btns[0].classList.add('active');
+  if(tab === 'battle') btns[1].classList.add('active');
+  if(tab === 'person') btns[2].classList.add('active'); // 👈 thêm
+}
+</script>
+
+</body>
+</html>
