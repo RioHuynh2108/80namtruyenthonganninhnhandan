@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Chatbot AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* VIDEO */
+#video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events:none;
+}
+
+/* CHAT BOX */
+.chat-box{
+  background: rgba(0,0,0,0.75);
+  margin: 20px auto;
+  width: 95%;
+  max-width: 600px;
+  height: 65vh;
+  border-radius: 12px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* MESSAGES */
+.messages{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+}
+
+/* MESSAGE */
+.msg{
+  margin:8px 0;
+  padding:10px;
+  border-radius:10px;
+  max-width:80%;
+}
+
+.user{
+  background:#FFD700;
+  color:black;
+  margin-left:auto;
+}
+
+.bot{
+  background:#333;
+}
+
+/* INPUT */
+.input-box{
+  display:flex;
+  border-top:1px solid #555;
+}
+
+.input-box input{
+  flex:1;
+  padding:12px;
+  border:none;
+  outline:none;
+}
+
+.input-box button{
+  padding:12px;
+  border:none;
+  background:#FFD700;
+  cursor:pointer;
+}
+
+/* TITLE */
+.header{
+  margin-top:20px;
+  background: rgba(0,0,0,0.6);
+  padding:15px;
+  border-radius:10px;
+}
+
+.header h1{
+  color:#FFD700;
+}
+
+/* NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+}
+.bottom-nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:0.75rem;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .chat-box{
+    height:70vh;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<video id="video-background" autoplay loop muted>
+  <source src="videonen.mp4">
+</video>
+
+<!-- NHẠC -->
+<audio id="bg-music" loop>
+  <source src="nhacnen.mp3">
+</audio>
+
+<div style="position: fixed; top: 20px; right: 20px;">
+  <button onclick="toggleMusic()">🔊 Nhạc</button>
+</div>
+
+<!-- TITLE -->
+<div class="header">
+  <h1>🤖 CHATBOT AI 80 NĂM ANND</h1>
+</div>
+
+<!-- CHAT -->
+<div class="chat-box">
+
+  <div class="messages" id="messages">
+    <div class="msg bot">Xin chào! Tôi có thể hỗ trợ thông tin về truyền thống 80 năm lực lượng ANND📚</div>
+  </div>
+
+  <div class="input-box">
+    <input type="text" id="input" placeholder="Nhập câu hỏi...">
+    <button onclick="send()">Gửi</button>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="bottom-nav">
+  <button onclick="go('index.html')">🏠 Trang chủ</button>
+  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
+  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
+  <button onclick="go('tracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
+  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
+  <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng góp</button>
+</div>
+
+<script>
+const music = document.getElementById('bg-music');
+let isPlaying = false;
+
+function toggleMusic(){
+  if(isPlaying){ music.pause(); }
+  else{ music.play(); }
+  isPlaying = !isPlaying;
+}
+
+/* CHAT */
+function addMsg(text, type){
+  let div = document.createElement("div");
+  div.className = "msg " + type;
+  div.innerText = text;
+  document.getElementById("messages").appendChild(div);
+  div.scrollIntoView();
+}
+
+async function send(){
+  let input = document.getElementById("input");
+  let text = input.value.trim();
+  if(text==="") return;
+
+  addMsg(text,"user");
+  input.value="";
+
+  addMsg("⏳ Đang trả lời...","bot");
+
+  try{
+    let res = await fetch("https://script.google.com/macros/s/AKfycbws_3jNfSovC3eGHmqJjiykSzPQZY-WondxZksQVK6srbe_6GKb45qpEvyCc6kH_xoRag/exec",{
+      method:"POST",
+      body: JSON.stringify({message:text})
+    });
+
+    let data = await res.text();
+
+    document.querySelector(".messages").lastChild.remove();
+    addMsg(data,"bot");
+
+  }catch(e){
+    document.querySelector(".messages").lastChild.remove();
+    addMsg("❌ Lỗi kết nối","bot");
+  }
+}
+
+/* ENTER gửi */
+document.getElementById("input")
+.addEventListener("keypress", function(e){
+  if(e.key==="Enter") send();
+});
+
+/* NAV */
+function go(link){
+  window.location = link;
+}
+</script>
+
+</body>
+</html>
