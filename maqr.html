@@ -6,35 +6,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
+body{
   font-family: Arial, sans-serif;
-  color: white;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color:white;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 /* VIDEO */
-#video-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
+#video-background{
+  position:fixed;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
   pointer-events:none;
 }
 
+/* TITLE */
+.header{
+  margin-top:20px;
+  background:rgba(0,0,0,0.6);
+  padding:15px;
+  border-radius:10px;
+}
+.header h1{color:#FFD700}
+
 /* CHAT BOX */
 .chat-box{
-  background: rgba(0,0,0,0.75);
-  margin: 20px auto;
-  width: 95%;
-  max-width: 600px;
-  height: 65vh;
-  border-radius: 12px;
+  background:rgba(0,0,0,0.75);
+  margin:20px auto;
+  width:95%;
+  max-width:600px;
+  height:65vh;
+  border-radius:12px;
   display:flex;
   flex-direction:column;
   overflow:hidden;
@@ -85,18 +92,6 @@ body {
   cursor:pointer;
 }
 
-/* TITLE */
-.header{
-  margin-top:20px;
-  background: rgba(0,0,0,0.6);
-  padding:15px;
-  border-radius:10px;
-}
-
-.header h1{
-  color:#FFD700;
-}
-
 /* NAV */
 .bottom-nav{
   position:fixed;
@@ -116,9 +111,7 @@ body {
 
 /* MOBILE */
 @media(max-width:768px){
-  .chat-box{
-    height:70vh;
-  }
+  .chat-box{height:70vh;}
 }
 </style>
 </head>
@@ -148,7 +141,9 @@ body {
 <div class="chat-box">
 
   <div class="messages" id="messages">
-    <div class="msg bot">Xin chào! Tôi có thể hỗ trợ thông tin về truyền thống 80 năm lực lượng ANND📚</div>
+    <div class="msg bot">
+      Xin chào! Tôi có thể hỗ trợ về truyền thống 80 năm ANND 📚
+    </div>
   </div>
 
   <div class="input-box">
@@ -175,12 +170,11 @@ const music = document.getElementById('bg-music');
 let isPlaying = false;
 
 function toggleMusic(){
-  if(isPlaying){ music.pause(); }
-  else{ music.play(); }
+  isPlaying ? music.pause() : music.play();
   isPlaying = !isPlaying;
 }
 
-/* CHAT */
+/* HIỂN THỊ TIN NHẮN */
 function addMsg(text, type){
   let div = document.createElement("div");
   div.className = "msg " + type;
@@ -189,6 +183,7 @@ function addMsg(text, type){
   div.scrollIntoView();
 }
 
+/* GỬI CHAT */
 async function send(){
   let input = document.getElementById("input");
   let text = input.value.trim();
@@ -197,22 +192,31 @@ async function send(){
   addMsg(text,"user");
   input.value="";
 
-  addMsg("⏳ Đang trả lời...","bot");
+  // loading
+  let loading = document.createElement("div");
+  loading.className = "msg bot";
+  loading.innerText = "⏳ Đang trả lời...";
+  document.getElementById("messages").appendChild(loading);
 
   try{
-    let res = await fetch("https://script.google.com/macros/s/AKfycbws_3jNfSovC3eGHmqJjiykSzPQZY-WondxZksQVK6srbe_6GKb45qpEvyCc6kH_xoRag/exec",{
+    let res = await fetch("https://script.google.com/macros/s/AKfycbx4yiisV0jA7cMPannm8JD2lnSymtFOCwqgGx7JpBm-ZKTlQIV-AzMG7Cg-XRUlnX7jbQ/exec",{
       method:"POST",
-      body: JSON.stringify({message:text})
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        message:text
+      })
     });
 
-    let data = await res.text();
+    let data = await res.json();
 
-    document.querySelector(".messages").lastChild.remove();
-    addMsg(data,"bot");
+    loading.remove();
+    addMsg(data.reply,"bot");
 
   }catch(e){
-    document.querySelector(".messages").lastChild.remove();
-    addMsg("❌ Lỗi kết nối","bot");
+    loading.remove();
+    addMsg("❌ Lỗi kết nối server","bot");
   }
 }
 
