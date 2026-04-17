@@ -3,32 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Web Chat AI</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .left {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .right {
+      width: 400px;
+      border-left: 1px solid #ddd;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>Website của tôi</h1>
+<div class="container">
 
-<!-- CHATBOTKIT WIDGET -->
-<script id="chatbotkit-widget"
-        src="https://static.chatbotkit.com/integrations/widget/v2.js"
-        data-widget="cmo2zxs7k000004l7nllp6qbr">
-</script>
+  <div class="left">
+    <h1>Website</h1>
+    <p>Chat AI đang chạy bên phải</p>
+  </div>
 
-<script>
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    // cố gắng mở chat tự động
-    if (window.ChatBotKitWidget) {
-      window.ChatBotKitWidget.open?.();
-    }
+  <div class="right">
+    <!-- ChatBotKit embed -->
+    <script src="https://static.chatbotkit.com/integrations/widget/v2.js"
+            data-widget="cmo2zxs7k000004l7nllp6qbr">
+    </script>
+  </div>
 
-    // fallback click bubble nếu API không hỗ trợ
-    const bubble = document.querySelector('[id*="chat"], [class*="chat"], iframe');
-    if (bubble) bubble.click();
-  }, 1000);
-});
-</script>
+</div>
 
 </body>
 </html>
