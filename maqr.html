@@ -1,49 +1,229 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Web Chat AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-    }
+<title>Web Chat AI</title>
 
-    .container {
-      display: flex;
-      height: 100vh;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
 
-    .left {
-      flex: 1;
-      padding: 20px;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-    .right {
-      width: 400px;
-      border-left: 1px solid #ddd;
-    }
-  </style>
+body{
+  font-family:'Be Vietnam Pro',sans-serif;
+  color:white;
+}
+
+/* VIDEO */
+#video-background{
+  position:fixed;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+}
+
+
+
+/* HEADER */
+.header{
+  text-align:center;
+}
+
+.header h1{
+  color:#FFD700;
+  font-size:1.5rem;
+}
+
+/* STATUS */
+.status{
+  text-align:center;
+  margin-top:5px;
+  color:#FFD700;
+  font-size:0.9rem;
+}
+
+/* PROGRESS */
+.progress-container{
+  height:6px;
+  background:rgba(255,255,255,0.2);
+  border-radius:10px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.progress-bar{
+  height:100%;
+  width:100%;
+  background:#FFD700;
+}
+
+/* MARQUEE */
+.marquee{
+  overflow:hidden;
+  background:rgba(0,0,0,0.7);
+  padding:8px;
+  margin-bottom:10px;
+}
+
+.marquee span{
+  display:inline-block;
+  white-space:nowrap;
+  animation:marquee 12s linear infinite;
+  color:#FFD700;
+}
+
+@keyframes marquee{
+  from{transform:translateX(100%)}
+  to{transform:translateX(-100%)}
+}
+
+/* MENU */
+.menu{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.menu button{
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #FFD700;
+  background:rgba(0,0,0,0.8);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.menu button.active{
+  background:#FFD700;
+  color:black;
+  transform:scale(1.05);
+}
+
+/* VIEWER */
+.viewer{
+  opacity:0;
+  filter:blur(5px);
+  transition:0.5s;
+  height:70vh;
+}
+
+.viewer.active{
+  opacity:1;
+  filter:blur(0);
+}
+
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:10px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:space-around;
+  padding:15px;
+}
+
+.bottom-nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:0.75rem;
+}
+
+/* MOBILE */
+@media(min-width:768px){
+  .menu{grid-template-columns:repeat(2,1fr)}
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- VIDEO BACKGROUND -->
+<video id="video-background" autoplay loop muted playsinline>
+  <source src="videonen.mp4">
+</video>
 
-  <div class="left">
-    <h1>Website</h1>
-    <p>Chat AI đang chạy bên phải</p>
-  </div>
+<div class="overlay">
 
-  <div class="right">
-    <!-- ChatBotKit embed -->
-    <script src="https://static.chatbotkit.com/integrations/widget/v2.js"
-            data-widget="cmo2zxs7k000004l7nllp6qbr">
-    </script>
-  </div>
+<div class="header">
+  <h1>💬 WEB CHAT AI</h1>
+</div>
+
+<div class="status" id="statusText">Chưa chọn chatbot</div>
+
+<div class="progress-container">
+  <div class="progress-bar"></div>
+</div>
+
+<div class="marquee">
+  <span>📢 Chọn biểu tượng chatbotkit ở phía dưới góc phải màn hình để mở chatbot AI 📢</span>
+</div>
+
+
+
+<!-- VIEWER -->
+<div class="viewer" id="viewer">
+
+  <!-- CHATBOTKIT -->
+  <script src="https://static.chatbotkit.com/integrations/widget/v2.js"
+          data-widget="cmo2zxs7k000004l7nllp6qbr">
+  </script>
 
 </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="go('index.html')">🏠 Trang chủ</button>
+  <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
+  <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
+  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
+  <button onclick="go('tracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
+  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
+  <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng góp</button>
+</div>
+
+<script>
+
+function openChat(btn){
+
+  document.querySelectorAll('.menu button')
+    .forEach(b=>b.classList.remove('active'));
+
+  btn.classList.add('active');
+
+  document.getElementById("statusText").innerText = "📖 Đang mở chatbot AI";
+
+  const viewer = document.getElementById("viewer");
+
+  viewer.classList.remove("active");
+
+  setTimeout(()=>{
+    viewer.classList.add("active");
+  },200);
+}
+
+function go(link){
+  document.body.style.opacity="0";
+  setTimeout(()=>window.location=link,300);
+}
+
+</script>
 
 </body>
 </html>
