@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game sút bóng vào gôn</title>
+<title>Game ANND ⚽</title>
 
 <style>
 body{
@@ -12,58 +12,39 @@ body{
   background:#0a1f2e;
   color:white;
   text-align:center;
-  transition:0.3s;
 }
 
-/* MENU START */
-.start-menu{
+/* MENU */
+.menu{
   position:fixed;
-  top:0;
-  left:0;
   width:100%;
   height:100%;
   background:#000c;
   display:flex;
   justify-content:center;
   align-items:center;
-  z-index:100;
+  z-index:10;
 }
-
-.start-box{
+.box{
   background:#111;
   padding:30px;
   border-radius:15px;
 }
-
-.start-box button{
-  display:block;
-  width:200px;
-  margin:10px auto;
-  padding:12px;
+button{
+  padding:10px 20px;
+  margin:10px;
   border:none;
   border-radius:10px;
-  font-size:16px;
   cursor:pointer;
 }
-
-.start{
-  background:#FFD700;
-}
-
-.exit{
-  background:#444;
-  color:white;
-}
-
-/* ===== GIỮ NGUYÊN CODE CŨ ===== */
+.start{background:#FFD700;}
+.exit{background:#444;color:white}
 
 /* SÂN */
 .field{
   position:relative;
-  width:100%;
   height:300px;
   background:linear-gradient(#1e7d32,#4caf50);
-  overflow:hidden;
 }
 
 .goal{
@@ -83,12 +64,11 @@ body{
   left:50%;
   transform:translateX(-50%);
   font-size:40px;
-  transition:0.4s ease;
-  z-index:5;
+  transition:0.4s;
 }
 
-.dive-left{ transform:translateX(-120px) scale(1.1); }
-.dive-right{ transform:translateX(60px) scale(1.1); }
+.dive-left{ transform:translateX(-120px); }
+.dive-right{ transform:translateX(60px); }
 
 .ball{
   position:absolute;
@@ -99,57 +79,29 @@ body{
   background:white;
   border-radius:50%;
   transform:translateX(-50%);
-  transition:0.6s ease;
+  transition:0.6s;
 }
 
-.player{
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:40px;
-}
-
-.question{ margin:15px; font-size:18px; }
-
-.answers button{
-  display:block;
-  width:90%;
-  margin:8px auto;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#333;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-
-.answers button:hover{
-  background:#FFD700;
-  color:black;
-}
-
-.score{
-  margin:10px;
-  font-size:18px;
-  color:#FFD700;
-}
-
-.result{
-  font-size:20px;
-  margin-top:20px;
-}
-
-.goal-effect{
+.effect{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   font-size:30px;
-  color:#FFD700;
   opacity:0;
-  transition:0.5s;
+}
+
+/* UI */
+.answers button{
+  display:block;
+  width:90%;
+  margin:8px auto;
+  background:#333;
+  color:white;
+}
+.answers button:hover{
+  background:#FFD700;
+  color:black;
 }
 </style>
 </head>
@@ -157,163 +109,201 @@ body{
 <body>
 
 <!-- MENU -->
-<div class="start-menu" id="menu">
-  <div class="start-box">
-    <h2>⚽ GAME SÚT BÓNG</h2>
+<div class="menu" id="menu">
+  <div class="box">
+    <h2>⚽ GAME ANND</h2>
     <button class="start" onclick="startGame()">▶️ Bắt đầu</button>
-    <button class="exit" onclick="exitGame()">❌ Thoát</button>
   </div>
 </div>
-<!-- MENU KẾT THÚC -->
-<div class="start-menu" id="endMenu" style="display:none;">
-  <div class="start-box">
-    <h2>🎉 KẾT THÚC</h2>
-    <p id="finalScore"></p>
-    <button class="start" onclick="restartGame()">🔄 Chơi lại</button>
-    <button class="exit" onclick="exitGame()">❌ Thoát</button>
-  </div>
-</div>
-<h2>⚽ Game sút bóng vào gôn</h2>
 
-<div class="score">Điểm: <span id="score">0</span>/10</div>
+<h2>⚽ Sút bóng trả lời câu hỏi</h2>
+<div>Điểm: <span id="score">0</span>/5</div>
 
 <div class="field">
   <div class="goal"></div>
   <div class="goalkeeper" id="keeper">🧍‍♂️</div>
   <div class="ball" id="ball"></div>
-  <div class="player">🧍‍♂️</div>
-  <div class="goal-effect" id="effect"></div>
+  <div class="effect" id="effect"></div>
 </div>
 
-<div class="question" id="question"></div>
+<div id="question"></div>
 <div class="answers" id="answers"></div>
-<div class="result" id="result"></div>
+<div id="explainBox"></div>
 
 <script>
 const questions = [
-  {q:"Lực lượng ANND ra đời năm nào?",a:["1945","1946","1954","1975"],correct:0},
-  {q:"Ngày truyền thống ANND?",a:["19/8","22/12","30/4","2/9"],correct:0},
-  {q:"Ai là lãnh đạo đầu tiên?",a:["Hồ Chí Minh","Trần Quốc Hoàn","Phạm Văn Đồng","Võ Nguyên Giáp"],correct:1},
-  {q:"ANND thuộc lực lượng nào?",a:["Quân đội","Công an","Dân quân","Biên phòng"],correct:1},
-  {q:"Nhiệm vụ chính?",a:["Bảo vệ an ninh","Kinh tế","Y tế","Giáo dục"],correct:0},
-  {q:"Thế trận gì quan trọng?",a:["Nhân dân","Kinh tế","Quốc tế","Quân sự"],correct:0},
-  {q:"Công nghệ hiện nay?",a:["AI","Nông nghiệp","Thủ công","In ấn"],correct:0},
-  {q:"Không gian nào mới?",a:["Mạng","Biển","Rừng","Núi"],correct:0},
-  {q:"Ai tham gia bảo vệ?",a:["Nhân dân","Chỉ công an","Chỉ quân đội","Không ai"],correct:0},
-  {q:"Vai trò ANND?",a:["Trung tâm bảo vệ","Phụ trợ","Không quan trọng","Không có"],correct:0}
+  {
+    q: "Sự kiện nào được xem là mốc khởi đầu của lực lượng An ninh nhân dân?",
+    a: ["21/2/1946", "11/3/1948", "19/8/1945", "1954"],
+    correct: 2,
+    ex: "Ngày 19/8/1945 là mốc thành lập Việt Nam Công an vụ – tiền thân của lực lượng CAND, có nhiệm vụ bảo vệ chính quyền cách mạng non trẻ."
+  },
+  {
+    q: "Trong kháng chiến chống Pháp, nhiệm vụ chính của lực lượng An ninh là gì?",
+    a: ["Tuyên truyền quần chúng", "Chống gián điệp, bảo vệ cơ sở cách mạng", "Chỉ huy chiến đấu", "Hậu cần"],
+    correct: 1,
+    ex: "Lực lượng An ninh tập trung bảo vệ nội bộ, chống gián điệp, giữ an toàn cho cách mạng."
+  },
+  {
+    q: "Một chiến công tiêu biểu giai đoạn này là gì?",
+    a: ["Điện Biên Phủ", "Ngăn chặn âm mưu phá hoại chính quyền", "Đánh đồn", "Ngoại giao"],
+    correct: 1,
+    ex: "Lực lượng An ninh góp phần bảo vệ sự tồn tại của Nhà nước non trẻ trước âm mưu phá hoại."
+  },
+  {
+    q: "Ý nghĩa của việc “dựa vào dân” là gì?",
+    a: ["Thu thập thông tin cá nhân", "Tạo sức mạnh toàn dân", "Huy động chiến tranh", "Tuyên truyền"],
+    correct: 1,
+    ex: "Nhân dân là nền tảng giúp lực lượng An ninh hoàn thành nhiệm vụ."
+  },
+  {
+    q: "Năm 1954 gắn với sự kiện nào?",
+    a: ["Kết thúc chiến tranh", "Chia cắt đất nước", "Bắt đầu chống Mỹ", "Hiệp định Giơ-ne-vơ"],
+    correct: 3,
+    ex: "Hiệp định Giơ-ne-vơ là mốc quan trọng, làm thay đổi nhiệm vụ của lực lượng An ninh."
+  },
+  {
+    q: "Nhiệm vụ trọng tâm ở miền Bắc là gì?",
+    a: ["Chi viện miền Nam", "Bảo vệ an ninh chính trị", "Cải cách ruộng đất", "Xây dựng công nghiệp"],
+    correct: 1,
+    ex: "Giữ ổn định chính trị để xây dựng chủ nghĩa xã hội."
+  },
+  {
+    q: "Vai trò của lực lượng An ninh ở miền Nam là gì?",
+    a: ["Hậu phương", "Tình báo, bảo vệ cơ sở cách mạng", "Chỉ huy quân sự", "Di cư"],
+    correct: 1,
+    ex: "Lực lượng hoạt động bí mật, góp phần quan trọng vào thắng lợi."
+  },
+  {
+    q: "Âm mưu địch bị đấu tranh mạnh là gì?",
+    a: ["Chiến tranh đặc biệt", "Chiến tranh cục bộ", "Diễn biến hòa bình", "Lật đổ, phá hoại nội bộ"],
+    correct: 3,
+    ex: "Đây là hoạt động nguy hiểm nhất từ bên trong."
+  },
+  {
+    q: "Ý nghĩa năm 1975 với lực lượng An ninh là gì?",
+    a: ["Giải tán", "Bước sang giai đoạn mới", "Ngoại giao", "Xây dựng"],
+    correct: 1,
+    ex: "Sau 1975, lực lượng hoạt động trên phạm vi cả nước."
+  },
+  {
+    q: "Biểu tượng tiêu biểu của giai đoạn này là ai?",
+    a: ["Nhà khoa học", "Anh hùng LLVTND", "Vận động viên", "Nhà văn"],
+    correct: 1,
+    ex: "Họ là những người hy sinh thầm lặng vì an ninh Tổ quốc."
+  }
 ];
 
-let index = 0;
+let quiz = [];
+let current = 0;
 let score = 0;
 
-const qEl = document.getElementById("question");
-const aEl = document.getElementById("answers");
-const ball = document.getElementById("ball");
-const keeper = document.getElementById("keeper");
-const effect = document.getElementById("effect");
+/* RANDOM 5 CÂU */
+function getRandom(){
+  return [...questions].sort(()=>0.5-Math.random()).slice(0,5);
+}
 
-/* START GAME */
+/* START */
 function startGame(){
   document.getElementById("menu").style.display="none";
-}
-function restartGame(){
-  // reset dữ liệu
-  index = 0;
+  quiz = getRandom();
+  current = 0;
   score = 0;
-
-  // reset UI
-  document.getElementById("score").innerText = 0;
-  document.getElementById("result").innerText = "";
-  effect.style.opacity = 0;
-
-  // ⚡ KHÔNG hiện lại menu
-  document.getElementById("menu").style.display = "none";
-
-  // load lại câu hỏi ngay
+  document.getElementById("score").innerText=0;
   loadQuestion();
 }
-/* EXIT GAME */
-function exitGame(){
-  document.body.style.opacity="0";
-  setTimeout(()=>{
-    window.location.href="trochoitracnghiem.html";
-  },300);
-}
 
+/* LOAD */
 function loadQuestion(){
-  const q = questions[index];
-  qEl.innerText = q.q;
-  aEl.innerHTML = "";
-
+  document.getElementById("explainBox").innerHTML="";
+  const q = quiz[current];
+  document.getElementById("question").innerHTML=`<h3>Câu ${current+1}/5: ${q.q}</h3>`;
+  
+  let html="";
   q.a.forEach((ans,i)=>{
-    aEl.innerHTML += `<button onclick="shoot(${i})">${ans}</button>`;
+    html+=`<button onclick="shoot(${i})">${ans}</button>`;
   });
+  document.getElementById("answers").innerHTML=html;
 }
 
+/* KEEPER */
 function moveKeeper(){
-  keeper.classList.remove("dive-left","dive-right");
-  Math.random()<0.5 ? keeper.classList.add("dive-left")
-                    : keeper.classList.add("dive-right");
+  const k=document.getElementById("keeper");
+  k.classList.remove("dive-left","dive-right");
+  Math.random()<0.5 ? k.classList.add("dive-left") : k.classList.add("dive-right");
 }
 
-function shoot(answer){
-  const correct = questions[index].correct;
+/* SHOOT */
+function shoot(i){
+  const q = quiz[current];
   moveKeeper();
 
-  if(answer === correct){
-    ball.style.transform = "translate(-50%, -200px)";
-    effect.innerText = "GOAL!!! ⚽";
+  let correct = (i===q.correct);
+  const ball=document.getElementById("ball");
+  const effect=document.getElementById("effect");
+
+  if(correct){
+    ball.style.transform="translate(-50%,-200px)";
+    effect.innerText="GOAL ⚽";
     score++;
-    document.getElementById("score").innerText = score;
+    document.getElementById("score").innerText=score;
   }else{
-    ball.style.transform = "translate(-150%, -150px)";
-    effect.innerText = "MISS ❌";
+    ball.style.transform="translate(-150%,-150px)";
+    effect.innerText="MISS ❌";
   }
 
-  effect.style.opacity = 1;
+  effect.style.opacity=1;
 
   setTimeout(()=>{
-    nextQuestion();
+    showExplain(correct,q);
     resetField();
-  },1200);
+  },800);
 }
 
-function resetField(){
-  ball.style.transform = "translateX(-50%)";
-  keeper.classList.remove("dive-left","dive-right");
-  effect.style.opacity = 0;
-}
-
-function nextQuestion(){
-  index++;
-  index < questions.length ? loadQuestion() : endGame();
-}
-
-function endGame(){
-  qEl.innerText = "🎉 KẾT THÚC!";
-  aEl.innerHTML = "";
-
-  document.getElementById("result").innerText =
-    "Bạn ghi được " + score + "/10 bàn ⚽";
-
-  effect.innerText = score>=8 ? "🏆 Xuất sắc!"
-                   : score>=5 ? "👍 Khá!"
-                   : "💪 Cố gắng!";
-  effect.style.opacity = 1;
-
-  // 👉 hiện menu kết thúc
-  document.getElementById("menu").style.display = "flex";
-
-  // 👉 đổi nội dung menu
-  document.querySelector(".start-box").innerHTML = `
-    <h2>🏁 KẾT THÚC</h2>
-    <p>Điểm: ${score}/10</p>
-    <button class="start" onclick="restartGame()">🔄 Chơi lại</button>
-    <button class="exit" onclick="exitGame()">❌ Thoát</button>
+/* GIẢI THÍCH */
+function showExplain(correct,q){
+  document.getElementById("answers").innerHTML="";
+  
+  document.getElementById("explainBox").innerHTML=`
+    <p style="color:${correct?'lightgreen':'red'}">
+      ${correct?'✅ Đúng':'❌ Sai'}
+    </p>
+    <p><b>Đáp án:</b> ${q.a[q.correct]}</p>
+    <p><b>Giải thích:</b> ${q.ex}</p>
+    <button onclick="next()">👉 Tôi đã hiểu – Chơi tiếp</button>
   `;
 }
-loadQuestion();
 
+/* NEXT */
+function next(){
+  current++;
+  if(current<quiz.length){
+    loadQuestion();
+  }else{
+    endGame();
+  }
+}
+
+/* RESET */
+function resetField(){
+  const ball=document.getElementById("ball");
+  const keeper=document.getElementById("keeper");
+  const effect=document.getElementById("effect");
+
+  ball.style.transform="translateX(-50%)";
+  keeper.classList.remove("dive-left","dive-right");
+  effect.style.opacity=0;
+}
+
+/* END */
+function endGame(){
+  document.getElementById("question").innerHTML="🎉 Kết thúc!";
+  document.getElementById("answers").innerHTML="";
+  document.getElementById("explainBox").innerHTML=`
+    <h3>Điểm: ${score}/5</h3>
+    <button onclick="startGame()">🔄 Chơi lại</button>
+  `;
+}
 </script>
 
 </body>
