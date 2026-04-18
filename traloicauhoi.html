@@ -139,9 +139,20 @@ iframe{
   background:none;
   border:none;
   color:white;
-  font-size:1.11rem;
+  font-size:1rem;
 }
-
+/* MUSIC BUTTON */
+.music-btn{
+  position:fixed;
+  top:12px;
+  right:12px;
+  z-index:999;
+  background:#FFD700;
+  border:none;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:0.8rem;
+}
 /* DESKTOP */
 @media(min-width:768px){
   .menu{grid-template-columns:repeat(2,1fr)}
@@ -154,7 +165,11 @@ iframe{
 <video id="video-background" autoplay loop muted playsinline>
   <source src="videonen.mp4">
 </video>
+<audio id="bg-music" loop>
+  <source src="nhacnen.mp3" type="audio/mp3">
+</audio>
 
+<button class="music-btn" onclick="toggleMusic()">🔊</button>
 <div class="overlay">
 
 <div class="header">
@@ -191,11 +206,11 @@ iframe{
   <button onclick="go('index.html')">🏠 Trang chủ</button>
   <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
   <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
-  <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
-  <button onclick="go('hinhanh.html')">🎥Tư liệu tuyên truyền</button>
-  <button onclick="go('trochoitracnghiem.html')">🛡️Trò chơi trắc nghiệm</button>
-  <button onclick="go('maqr.html')">🧠 QR tài liệu</button>
-  <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng góp</button>
+  <button onclick="go('vanbanluat.html')">📚 Tiến trình lịch sử</button>
+  <button onclick="go('hinhanh.html')">🎥 Tư liệu tuyên truyền</button>
+ <button onclick="go('trochoitracnghiem.html')">🛡️Mini game</button>
+  <button onclick="go('maqr.html')">🧠 Chatbot AI</button>
+  <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng ý</button>
 </div>
 
 <script>
@@ -271,7 +286,14 @@ function go(link){
   document.body.style.opacity="0";
   setTimeout(()=>{window.location=link},300);
 }
+const music=document.getElementById('bg-music');
+let isPlaying=false;
 
+function toggleMusic(){
+  if(isPlaying){music.pause();}
+  else{music.play();}
+  isPlaying=!isPlaying;
+}
 </script>
 
 </body>
