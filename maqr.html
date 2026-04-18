@@ -9,65 +9,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Be Vietnam Pro',sans-serif;
+}
 
 body{
-  font-family:'Be Vietnam Pro',sans-serif;
   color:white;
 }
 
-/* VIDEO */
+/* VIDEO BACKGROUND */
 #video-background{
   position:fixed;
   width:100%;
   height:100%;
   object-fit:cover;
-  z-index:-1;
+  z-index:-2;
 }
 
-/* ===== NOTICE POPUP ===== */
-#noticeBox{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.75);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-.notice-content{
-  background:#111;
-  border:2px solid #FFD700;
-  padding:25px;
-  border-radius:12px;
-  max-width:500px;
-  text-align:center;
-  box-shadow:0 0 20px rgba(255,215,0,0.4);
-}
-
-.notice-content h2{
-  color:#FFD700;
-  margin-bottom:10px;
-}
-
-.notice-content p{
-  font-size:15px;
-  line-height:1.5;
-}
-
-.notice-content button{
-  margin-top:15px;
-  padding:10px 20px;
-  border:none;
-  border-radius:8px;
-  background:#FFD700;
-  color:black;
-  font-weight:bold;
-  cursor:pointer;
+/* OVERLAY */
+.overlay{
+  background:rgba(0,0,0,0.65);
+  min-height:100vh;
+  padding:15px;
 }
 
 /* HEADER */
@@ -108,7 +74,7 @@ body{
   overflow:hidden;
   background:rgba(0,0,0,0.7);
   padding:8px;
-  margin-bottom:10px;
+  margin-bottom:15px;
 }
 
 .marquee span{
@@ -123,28 +89,28 @@ body{
   to{transform:translateX(-100%)}
 }
 
-/* MENU */
-.menu{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-  margin-bottom:15px;
+/* =========================
+   KHUNG THÔNG BÁO (INLINE)
+========================= */
+.notice-box{
+  background:rgba(0,0,0,0.75);
+  border:2px solid #FFD700;
+  padding:20px;
+  border-radius:12px;
+  max-width:700px;
+  margin:0 auto 20px auto;
+  text-align:center;
+  box-shadow:0 0 15px rgba(255,215,0,0.3);
 }
 
-.menu button{
-  padding:14px;
-  border-radius:10px;
-  border:1px solid #FFD700;
-  background:rgba(0,0,0,0.8);
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
+.notice-box h2{
+  color:#FFD700;
+  margin-bottom:10px;
 }
 
-.menu button.active{
-  background:#FFD700;
-  color:black;
-  transform:scale(1.05);
+.notice-box p{
+  font-size:15px;
+  line-height:1.6;
 }
 
 /* VIEWER */
@@ -183,8 +149,13 @@ iframe{
   border:none;
   color:white;
   font-size:0.75rem;
+  cursor:pointer;
 }
-
+.bottom-nav button.active{
+  color:#FFD700;
+  font-weight:bold;
+  transform:scale(1.1);
+}
 /* MOBILE */
 @media(min-width:768px){
   .menu{grid-template-columns:repeat(2,1fr)}
@@ -194,7 +165,7 @@ iframe{
 
 <body>
 
-<!-- VIDEO BACKGROUND -->
+<!-- VIDEO -->
 <video id="video-background" autoplay loop muted playsinline>
   <source src="videonen.mp4">
 </video>
@@ -202,38 +173,37 @@ iframe{
 <div class="overlay">
 
 <div class="header">
-  <h1>💬 CHAT BOT AI</h1>
+  <h1>💬 CHATBOT AI</h1>
 </div>
 
-<div class="status" id="statusText">Chat bot AI hỏi đáp về lịch sử 80 năm truyền thống của lực lượng ANND </div>
+<div class="status">
+  Chatbot AI hỏi đáp về truyền thống 80 năm lực lượng ANND
+</div>
 
 <div class="progress-container">
   <div class="progress-bar"></div>
 </div>
 
 <div class="marquee">
-  <span>📢 Chọn biểu tượng CAND ở phía dưới góc phải màn hình để mở chatbot AI 📢</span>
-</div>
-<!-- THÊM KHUNG THÔNG BÁO -->
-<div id="noticeBox">
-  <div class="notice-content">
-    <h2>📢 THÔNG BÁO</h2>
-    <p>
-      Đây là trang Chatbot AI cung cấp thông tin hiểu - biết về 80 năm truyền thống của lực lượng An ninh nhân dân.
-      Vui lòng nhấn chọn biểu tượng ở phía dưới góc phải màn hình để mở chatbot AI.
-      Cảm ơn các đồng chí đã theo dõi!
-    </p>
-
-    <button onclick="closeNotice()">Đã hiểu</button>
-  </div>
+  <span>📢 Vui lòng nhấn chọn biểu tượng phía dưới góc phải màn hình để mở chatbot AI 📢</span>
 </div>
 
+<!-- ✅ KHUNG THÔNG BÁO INLINE -->
+<div class="notice-box">
+  <h2>📢 THÔNG BÁO</h2>
+  <p>
+    Đây là trang Chatbot AI cung cấp thông tin hiểu - biết về 80 năm truyền thống của lực lượng An ninh nhân dân. <br><br>
+    Vui lòng nhấn chọn biểu tượng ở phía dưới góc phải màn hình để mở chatbot AI. <br><br>
+    Cảm ơn các đồng chí đã theo dõi!
+  </p>
+</div>
 
-<!-- VIEWER -->
+<!-- CHAT VIEW -->
 <div class="viewer" id="viewer">
 
-  <!-- CHATBOTKIT -->
-  <script id="chatbotkit-widget" src="https://static.chatbotkit.com/integrations/widget/v2.js" data-widget="cmo322pex000004ldmok8seku"></script>
+  <script src="https://static.chatbotkit.com/integrations/widget/v2.js"
+          data-widget="cmo322pex000004ldmok8seku">
+  </script>
 
 </div>
 
@@ -241,7 +211,7 @@ iframe{
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <button onclick="go('index.html')">🏠 Trang chủ</button>
+   <button onclick="go('index.html')">🏠 Trang chủ </button>
   <button onclick="go('gioithieuchung.html')">📄 Giới thiệu</button>
   <button onclick="go('traloicauhoi.html')">📌Trả lời câu hỏi</button>
   <button onclick="go('vanbanluat.html')">📚Tiến trình lịch sử</button>
@@ -251,33 +221,24 @@ iframe{
   <button onclick="go('khuyennghi.html')">📎 Ý kiến đóng góp</button>
 </div>
 
+
 <script>
-
-function openChat(btn){
-
-  document.querySelectorAll('.menu button')
-    .forEach(b=>b.classList.remove('active'));
-
-  btn.classList.add('active');
-
-  document.getElementById("statusText").innerText = "📖 Đang mở chatbot AI";
-
-  const viewer = document.getElementById("viewer");
-
-  viewer.classList.remove("active");
-
-  setTimeout(()=>{
-    viewer.classList.add("active");
-  },200);
-}
 
 function go(link){
   document.body.style.opacity="0";
   setTimeout(()=>window.location=link,300);
 }
-function closeNotice(){
-  document.getElementById("noticeBox").style.display = "none";
+function setActiveNav(){
+  const currentPage = window.location.pathname.split("/").pop();
+
+  document.querySelectorAll(".bottom-nav button").forEach(btn=>{
+    if(btn.getAttribute("data-link") === currentPage){
+      btn.classList.add("active");
+    }
+  });
 }
+
+setActiveNav();
 </script>
 
 </body>
