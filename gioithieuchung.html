@@ -158,7 +158,45 @@ body{
   color:white;
   font-size:1rem;
 }
+/* GRID CẢM NGHĨ */
+.member-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
 
+.member{
+  background:rgba(0,0,0,0.7);
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+  border:1px solid rgba(255,215,0,0.3);
+  transition:0.3s;
+}
+
+.member:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 10px #FFD700;
+}
+
+.member img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.member-name{
+  margin-top:8px;
+  font-weight:bold;
+  color:#FFD700;
+}
+
+.member audio{
+  width:100%;
+  margin-top:8px;
+}
 /* DESKTOP */
 @media(min-width:768px){
   .menu{grid-template-columns:repeat(2,1fr)}
@@ -197,6 +235,7 @@ body{
   <button onclick="showContent('gioithieu1',1)">1️⃣ Giới thiệu nhóm tác giả</button>
   <button onclick="showContent('gioithieu2',2)">2️⃣ Ý tưởng tham gia</button>
   <button onclick="showContent('gioithieu3',3)">3️⃣ Mục tiêu và định hướng</button>
+  <button onclick="showContent('camnghi',4)">4️⃣ Cảm nghĩ của mỗi thành viên</button>
 </div>
 
 <!-- CONTENT 1 -->
@@ -256,7 +295,54 @@ Với tinh thần đó, nhóm tác giả mong muốn góp phần nhỏ bé vào 
 </button></p></p>
 
 </div>
+<!-- CONTENT 4 -->
+<div id="camnghi" class="content">
+  <h3>💬 Cảm nghĩ của các thành viên</h3>
 
+  <div class="member-grid">
+
+    <div class="member">
+      <img src="tv1.jpg">
+      <div class="member-name">Đoàn Việt Khánh - VB2K3</div>
+      <audio controls>
+        <source src="tv1.m4a" type="audio/mp4">
+      </audio>
+    </div>
+
+    <div class="member">
+      <img src="tv2.jpg">
+      <div class="member-name">Vũ thị Giang - VB2K3</div>
+      <audio controls>
+        <source src="tv2.m4a" type="audio/mp4">
+      </audio>
+    </div>
+
+    <div class="member">
+      <img src="tv3.jpg">
+      <div class="member-name">Lê Thị Trâm Anh - VB2K3</div>
+      <audio controls>
+        <source src="tv3.m4a" type="audio/mp4">
+      </audio>
+    </div>
+
+    <div class="member">
+      <img src="tv4.jpg">
+      <div class="member-name">Trần Anh Sơn - B2VB2K4</div>
+      <audio controls>
+        <source src="tv4.m4a" type="audio/mp4">
+      </audio>
+    </div>
+
+    <div class="member">
+      <img src="tv5.jpg">
+      <div class="member-name">Nguyễn Hồng Nhật - VB2K3</div>
+      <audio controls>
+        <source src="tv5.m4a" type="audio/mp4">
+      </audio>
+    </div>
+
+  </div>
+</div>
 </div>
 
 <!-- BOTTOM NAV -->
@@ -285,7 +371,7 @@ function showContent(id, step){
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.menu button')[step-1].classList.add('active');
 
-  document.getElementById('progressBar').style.width = (step/3)*100 + "%";
+  document.getElementById('progressBar').style.width = (step/)*100 + "%";
 }
 
 /* MUSIC */
