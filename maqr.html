@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Web Chat AI</title>
+<title>CHAT BOT AI</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
 
@@ -25,7 +25,50 @@ body{
   z-index:-1;
 }
 
+/* ===== NOTICE POPUP ===== */
+#noticeBox{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.75);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
 
+.notice-content{
+  background:#111;
+  border:2px solid #FFD700;
+  padding:25px;
+  border-radius:12px;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(255,215,0,0.4);
+}
+
+.notice-content h2{
+  color:#FFD700;
+  margin-bottom:10px;
+}
+
+.notice-content p{
+  font-size:15px;
+  line-height:1.5;
+}
+
+.notice-content button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  background:#FFD700;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
 
 /* HEADER */
 .header{
@@ -159,10 +202,10 @@ iframe{
 <div class="overlay">
 
 <div class="header">
-  <h1>💬 WEB CHAT AI</h1>
+  <h1>💬 CHAT BOT AI</h1>
 </div>
 
-<div class="status" id="statusText">Chưa chọn chatbot</div>
+<div class="status" id="statusText">Chat bot AI hỏi đáp về lịch sử 80 năm truyền thống của lực lượng ANND </div>
 
 <div class="progress-container">
   <div class="progress-bar"></div>
@@ -171,7 +214,19 @@ iframe{
 <div class="marquee">
   <span>📢 Chọn biểu tượng CAND ở phía dưới góc phải màn hình để mở chatbot AI 📢</span>
 </div>
+<!-- THÊM KHUNG THÔNG BÁO -->
+<div id="noticeBox">
+  <div class="notice-content">
+    <h2>📢 THÔNG BÁO</h2>
+    <p>
+      Đây là trang Chatbot AI cung cấp thông tin hiểu - biết về 80 năm truyền thống của lực lượng An ninh nhân dân.
+      Vui lòng nhấn chọn biểu tượng ở phía dưới góc phải màn hình để mở chatbot AI.
+      Cảm ơn các đồng chí đã theo dõi!
+    </p>
 
+    <button onclick="closeNotice()">Đã hiểu</button>
+  </div>
+</div>
 
 
 <!-- VIEWER -->
@@ -220,7 +275,9 @@ function go(link){
   document.body.style.opacity="0";
   setTimeout(()=>window.location=link,300);
 }
-
+function closeNotice(){
+  document.getElementById("noticeBox").style.display = "none";
+}
 </script>
 
 </body>
