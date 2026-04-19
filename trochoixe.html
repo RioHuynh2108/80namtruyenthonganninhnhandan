@@ -85,35 +85,63 @@ body{
 /* QUIZ */
 .quiz{
   position:absolute;
-  bottom:30;
-  left:0;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
   width:90%;
-  background:rgba(0,0,0,0.9);
-  padding:12px;
-  border-radius:12px 1212px 0 0;
+  max-width:400px;
+
+  background:rgba(55, 55, 52, 0.9);
+  padding:15px;
+  border-radius:15px;
+
   display:none;
   z-index:10;
 }
 
 /* CÂU HỎI */
 #question{
-  font-size:14px;
-  margin-bottom:11px;
+  color:white;
+  font-size:16px;
+  margin-bottom:12px;
 }
 
 /* NÚT ĐÁP ÁN */
 .quiz button{
   display:block;
-  width:90%;
-  margin:5px 0;
+  width:100%;
+  margin:6px 0;
   padding:10px;
   border:none;
   border-radius:10px;
   background:#444;
-  color:white;
-  font-size:12px;
+  color:#FFD700; /* 🔥 vàng */
+  font-size:14px;
+  cursor:pointer;
 }
 
+.quiz button:hover{
+  background:#4f4e4a;
+  color:black;
+}
+#explainBox{
+  margin-top:12px;
+  padding:10px;
+  border-radius:10px;
+  background:rgba(0,0,0,0.7);
+  color:#00ff88; /* 🔥 xanh lá */
+  font-size:14px;
+}
+.correct{
+  color:#00ff88; /* xanh */
+  font-weight:bold;
+}
+
+.wrong{
+  color:#ff4d4d; /* đỏ */
+  font-weight:bold;
+}
 /* MENU */
 .menu{
   position:absolute;
@@ -193,17 +221,132 @@ body{
   <div class="quiz" id="quizBox">
     <div id="question"></div>
     <div id="answers"></div>
+      <div id="explainBox"></div> <!-- 🔥 thêm dòng này -->
   </div>
 
 </div>
 
 <script>
 const questions = [
-  {q:"ANND thành lập năm nào?",a:["1945","1954","1975","1986"],correct:0},
-  {q:"Ngày truyền thống ANND?",a:["19/8","2/9","30/4","22/12"],correct:0},
-  {q:"Lực lượng ANND thuộc?",a:["Quân đội","Công an","Biên phòng","Dân quân"],correct:1},
-  {q:"Nhiệm vụ chính?",a:["An ninh","Y tế","Giáo dục","Kinh tế"],correct:0},
-  {q:"Ai tham gia bảo vệ?",a:["Nhân dân","Chỉ CA","Không ai","Quân đội"],correct:0}
+  {
+q:`Sau năm 1975, lực lượng An ninh nhân dân phải đối mặt với những thách thức lớn nào trong việc giữ vững ổn định an ninh quốc gia?`,
+a:[
+"Chỉ là vấn đề xây dựng cơ sở hạ tầng.",
+"Tàn dư chiến tranh, các hoạt động chống phá của nội phản, tình báo nước ngoài, an ninh biên giới, và tình hình kinh tế xã hội còn nhiều khó khăn.",
+"Sự bùng nổ của internet và mạng xã hội.",
+"Các vấn đề về biến đổi khí hậu toàn cầu."
+],
+correct:1,
+explain:`Giai đoạn sau giải phóng, đất nước còn nhiều khó khăn, lại phải đối mặt với các âm mưu chống phá của địch và các vấn đề an ninh phức tạp ở biên giới, nội địa.`
+},
+
+{
+q:`Chiến công điển hình nào của lực lượng CAND trong giai đoạn 1975-1986 đã góp phần quan trọng trong việc đấu tranh với các thế lực thù địch bên ngoài và nội phản?`,
+a:[
+"Chuyên án 515.",
+"Chuyên án CM-12.",
+"Chiến dịch Biên giới 1979.",
+"Vụ án Nguyễn Thái Học."
+],
+correct:1,
+explain:`Chuyên án CM-12 là một vụ án lớn, liên quan đến hoạt động tình báo, phản bội của một số cán bộ, thể hiện vai trò đấu tranh chống nội phản và tình báo nước ngoài của lực lượng An ninh.`
+},
+
+{
+q:`Vai trò của lực lượng An ninh nhân dân trong việc bảo vệ biên giới và an ninh nội địa giai đoạn 1975-1986 là gì?`,
+a:[
+"Tập trung vào công tác đối ngoại.",
+"Đảm bảo an ninh, trật tự, đấu tranh chống các hoạt động xâm nhập, phá hoại từ biên giới, giữ vững ổn định chính trị, xã hội.",
+"Chỉ phụ trách việc xuất nhập cảnh.",
+"Tổ chức các hoạt động văn hóa, thể thao."
+],
+correct:1,
+explain:`Việc giữ vững an ninh biên giới và trật tự nội địa là nhiệm vụ cấp thiết sau chiến tranh, đặc biệt khi đất nước còn phải đối mặt với nhiều thách thức từ bên ngoài.`
+},
+
+{
+q:`Ý nghĩa của việc thực hiện nguyên tắc "chính quy, tinh nhuệ" trong xây dựng lực lượng An ninh nhân dân giai đoạn 1975-1986 là gì?`,
+a:[
+"Để lực lượng An ninh trở nên cô lập với nhân dân.",
+"Nâng cao hiệu quả hoạt động, sức chiến đấu, đáp ứng yêu cầu ngày càng cao của nhiệm vụ bảo vệ an ninh quốc gia.",
+"Giảm bớt quân số.",
+"Tăng cường các hoạt động nghi lễ."
+],
+correct:1,
+explain:`Xây dựng lực lượng theo hướng "chính quy, tinh nhuệ" giúp lực lượng An ninh chuyên nghiệp hơn, có khả năng đối phó hiệu quả với các loại tội phạm và âm mưu phức tạp.`
+},
+
+{
+q:`Mốc thời gian 1986 gắn liền với sự kiện lịch sử quan trọng nào của Việt Nam, ảnh hưởng đến nhiệm vụ của lực lượng An ninh nhân dân?`,
+a:[
+"Kết thúc chiến tranh biên giới.",
+"Bắt đầu công cuộc Đổi mới, mở cửa và hội nhập quốc tế.",
+"Việt Nam gia nhập Liên Hợp Quốc.",
+"Thống nhất tiền tệ."
+],
+correct:1,
+explain:`Đại hội Đảng toàn quốc lần thứ VI (1986) khởi xướng công cuộc Đổi mới, mở ra giai đoạn mới cho đất nước, đồng thời đặt ra những yêu cầu, nhiệm vụ mới cho lực lượng An ninh trong bối cảnh hội nhập.`
+},
+
+{
+q:`Trong bối cảnh công cuộc Đổi mới và hội nhập quốc tế (từ 1986 đến nay), lực lượng An ninh nhân dân đã điều chỉnh phương thức hoạt động như thế nào để đối phó với "diễn biến hòa bình"?`,
+a:[
+"Chỉ tập trung vào đấu tranh vũ trang.",
+"Chủ động tham mưu, kết hợp đấu tranh trên mặt trận tư tưởng, văn hóa, an ninh kinh tế, an ninh mạng; xây dựng lực lượng cách mạng, chính quy, tinh nhuệ, từng bước hiện đại.",
+"Giảm thiểu các hoạt động nghiệp vụ để tiết kiệm ngân sách.",
+"Chỉ tập trung vào đấu tranh chống tội phạm hình sự thông thường."
+],
+correct:1,
+explain:`Trước âm mưu "diễn biến hòa bình", lực lượng An ninh đã chủ động đổi mới phương thức, đa dạng hóa biện pháp đấu tranh, không chỉ trên lĩnh vực an ninh truyền thống mà còn cả an ninh tư tưởng, kinh tế, mạng.`
+},
+
+{
+q:`Vai trò của lực lượng An ninh nhân dân trong lĩnh vực an ninh kinh tế và đấu tranh phòng, chống tội phạm công nghệ cao trong giai đoạn 1986-2026 là gì?`,
+a:[
+"Chỉ tập trung vào việc quản lý xuất nhập khẩu.",
+"Tham mưu cho Đảng, Nhà nước về chủ trương, chính sách bảo vệ an ninh kinh tế; chủ động đấu tranh, triệt phá các chuyên án lớn về kinh tế, tham nhũng, tội phạm mạng.",
+"Tổ chức các buổi hội thảo về kinh tế.",
+"Tư vấn cho các doanh nghiệp tư nhân."
+],
+correct:1,
+explain:`Với sự phát triển của nền kinh tế thị trường và công nghệ, an ninh kinh tế và tội phạm công nghệ cao trở thành những thách thức lớn, lực lượng An ninh đã tập trung đấu tranh hiệu quả trên các lĩnh vực này.`
+},
+
+{
+q:`Một trong những nhiệm vụ trọng tâm mà lực lượng An ninh nhân dân xác định để tiếp tục phát huy truyền thống và hoàn thành tốt nhiệm vụ bảo vệ Tổ quốc trong tình hình mới (đến 2026) là:`,
+a:[
+"Chỉ tập trung vào công tác đối ngoại.",
+"Nâng cao sức chiến đấu, chủ động nắm chắc tình hình, ngăn chặn và làm thất bại mọi âm mưu, hoạt động chống phá của các thế lực thù địch, bảo vệ vững chắc độc lập, chủ quyền, toàn vẹn lãnh thổ và giữ vững an ninh quốc gia, trật tự, an toàn xã hội.",
+"Chỉ tập trung vào công tác nghiên cứu khoa học.",
+"Tập trung vào việc tổ chức các sự kiện văn hóa."
+],
+correct:1,
+explain:`Nhiệm vụ cốt lõi của lực lượng An ninh luôn là bảo vệ an ninh quốc gia, giữ vững ổn định chính trị - xã hội, và trong giai đoạn mới, nhiệm vụ này càng đòi hỏi sự chủ động, cảnh giác và sức chiến đấu cao.`
+},
+
+{
+q:`Việc hiện đại hóa trang thiết bị, công nghệ nghiệp vụ của lực lượng An ninh nhân dân trong giai đoạn 1986-2026 nhằm mục đích gì?`,
+a:[
+"Tăng cường khả năng phô trương lực lượng.",
+"Nâng cao hiệu quả công tác nghiệp vụ, phát hiện, đấu tranh với các loại tội phạm và âm mưu mới, đặc biệt là tội phạm công nghệ cao và diễn biến hòa bình.",
+"Thay thế hoàn toàn con người trong các hoạt động.",
+"Tạo sự khác biệt với các lực lượng khác."
+],
+correct:1,
+explain:`Trang bị hiện đại giúp lực lượng An ninh có công cụ mạnh mẽ hơn để theo dõi, phát hiện, thu thập chứng cứ và đấu tranh hiệu quả với các loại tội phạm tinh vi trong bối cảnh mới.`
+},
+
+{
+q:`Ý nghĩa của việc phát huy truyền thống "Anh hùng lực lượng vũ trang nhân dân" đối với lực lượng An ninh nhân dân trong giai đoạn hiện nay là gì?`,
+a:[
+"Là dịp để tổ chức các buổi lễ kỷ niệm.",
+"Là nguồn động lực tinh thần to lớn, tiếp thêm sức mạnh để cán bộ, chiến sĩ vượt qua khó khăn, hoàn thành xuất sắc nhiệm vụ, xứng đáng với sự tin cậy của Đảng, Nhà nước và Nhân dân.",
+"Chỉ mang tính chất lịch sử, không còn phù hợp.",
+"Là cơ hội để đòi hỏi thêm các chế độ, chính sách."
+],
+correct:1,
+explain:`Việc phát huy truyền thống anh hùng là cách để giáo dục thế hệ cán bộ, chiến sĩ hiện tại về tinh thần cống hiến, hy sinh, lòng trung thành và ý chí chiến đấu, từ đó tiếp tục thực hiện tốt nhiệm vụ.`
+}
 ];
 
 let score = 0;
@@ -212,18 +355,34 @@ let qIndex = 0;
 let gameRunning = false;
 let obstacleMoving = false;
 
+let quiz = []; // ✅ 5 câu random
+
 const obs = document.getElementById("obs");
 const quizBox = document.getElementById("quizBox");
+
+/* RANDOM 5 CÂU */
+function getRandomQuestions(){
+  return [...questions].sort(()=>0.5 - Math.random()).slice(0,5);
+}
 
 /* HIỂN THỊ MÁU */
 function renderHealth(){
   document.getElementById("health").innerHTML = "❤️".repeat(health);
 }
-renderHealth();
 
 /* START */
 function startGame(){
   document.getElementById("menu").style.display="none";
+
+  score = 0;
+  health = 3;
+  qIndex = 0;
+
+  quiz = getRandomQuestions(); // ✅ random
+
+  renderHealth();
+  document.getElementById("score").innerText = 0;
+
   gameRunning = true;
   spawnObstacle();
 }
@@ -235,6 +394,8 @@ function exitGame(){
 
 /* SPAWN ĐÁ */
 function spawnObstacle(){
+  if(!gameRunning) return;
+
   obstacleMoving = true;
 
   obs.style.transition = "none";
@@ -244,6 +405,13 @@ function spawnObstacle(){
     obs.style.transition = "right 3s linear";
     obs.style.right = "110%";
   },50);
+
+  // ✅ spawn liên tục
+  setTimeout(()=>{
+    if(gameRunning){
+      spawnObstacle();
+    }
+  },3000);
 }
 
 /* CHECK VA CHẠM */
@@ -264,34 +432,32 @@ function checkObstacle(){
 }
 setInterval(checkObstacle, 30);
 
-/* 🛑 PAUSE */
+/* PAUSE */
 function pauseGame(){
   gameRunning = false;
   obstacleMoving = false;
 
-  // ❗ giữ nguyên vị trí đá (freeze)
   const currentRight = window.getComputedStyle(obs).right;
   obs.style.transition = "none";
   obs.style.right = currentRight;
 
-  // dừng background
   document.querySelector(".road").style.animationPlayState = "paused";
   document.querySelector(".scenery").style.animationPlayState = "paused";
 }
 
-/* ▶️ RESUME */
+/* RESUME */
 function resumeGame(){
   gameRunning = true;
 
   document.querySelector(".road").style.animationPlayState = "running";
   document.querySelector(".scenery").style.animationPlayState = "running";
 
-  spawnObstacle(); // tạo đá mới
+  spawnObstacle();
 }
 
 /* HIỆN CÂU HỎI */
 function showQuiz(){
-  const q = questions[qIndex];
+  const q = quiz[qIndex]; // ✅ dùng quiz random
   quizBox.style.display="block";
 
   document.getElementById("question").innerText = q.q;
@@ -306,20 +472,28 @@ function showQuiz(){
 
 /* TRẢ LỜI */
 function answer(i){
-  const q = questions[qIndex];
+  const q = quiz[qIndex];
+  const ansBox = document.getElementById("answers");
+
+  ansBox.innerHTML = `
+    <p style="color:${i===q.correct ? '#00ff88' : '#ff4d4d'}; font-weight:bold;">
+      ${i===q.correct ? '✅ Đúng' : '❌ Sai'}
+    </p>
+
+    <p style="color:#FFD700;">
+      <b>Đáp án:</b> ${q.a[q.correct]}
+    </p>
+
+    <p style="color:#00cc66;">
+      <b>Giải thích:</b> ${q.explain}
+    </p>
+
+    <button onclick="next()">👉 Tôi đã hiểu – Chơi tiếp</button>
+  `;
 
   if(i === q.correct){
     score++;
     document.getElementById("score").innerText = score;
-
-    quizBox.style.display="none";
-    qIndex++;
-
-    if(qIndex >= 5){
-      return finishGame();
-    }
-
-    resumeGame(); // chạy tiếp ngay
   }else{
     health--;
     renderHealth();
@@ -327,23 +501,37 @@ function answer(i){
     if(health <= 0){
       return gameOver();
     }
-
-    // sai → hỏi tiếp tại chỗ
-    qIndex++;
-    showQuiz();
   }
+}
+
+/* NEXT */
+function next(){
+  quizBox.style.display="none";
+  qIndex++;
+
+  if(qIndex >= quiz.length){
+    return finishGame();
+  }
+
+  resumeGame();
 }
 
 /* WIN */
 function finishGame(){
   alert("🏁 Về đích!\nĐiểm: " + score + "/5");
-  location.reload();
+  resetGame();
 }
 
 /* GAME OVER */
 function gameOver(){
   alert("💀 Hết máu!\nĐiểm: " + score);
-  location.reload();
+  resetGame();
+}
+
+/* RESET */
+function resetGame(){
+  document.getElementById("menu").style.display="flex";
+  gameRunning = false;
 }
 </script>
 
