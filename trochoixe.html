@@ -197,12 +197,11 @@ body{
   height:100%;
   display:flex;
   flex-direction:column;
-  justify-content:space-between; /* 🔥 tách trên - dưới */
+  justify-content:center; /* ✅ căn giữa */
   align-items:center;
-  padding:40px 0;
+  gap:30px; /* khoảng cách đều */
   z-index:20;
 }
-
 /* TITLE */
 .menu h2{
   margin-top:20px;
@@ -286,11 +285,23 @@ body{
   <div class="obstacle" id="obs">🪨</div>
 
   <!-- QUIZ -->
-  <div class="quiz" id="quizBox">
-    <div id="question"></div>
-    <div id="answers"></div>
-      <div id="explainBox"></div> <!-- 🔥 thêm dòng này -->
+<div class="quiz" id="quizBox">
+  <div id="question"></div>
+  <div id="answers"></div>
+  <div id="explainBox"></div>
+</div>
+
+<!-- ✅ POPUP KẾT THÚC (ĐẶT Ở ĐÂY) -->
+<div class="end-popup" id="endPopup">
+  <div class="end-box">
+    <h2>🏁 Kết thúc</h2>
+    <div id="finalScore"></div>
+    <div id="rankText"></div>
+
+    <button onclick="restartGame()">🔄 Chơi lại</button>
+    <button onclick="exitGame()">❌ Thoát</button>
   </div>
+</div>
 
 </div>
 
@@ -668,18 +679,7 @@ function showQuiz(){
   });
 }
   
-<!-- POPUP KẾT THÚC -->
-<div class="end-popup" id="endPopup">
-  <div class="end-box">
-    <h2>🏁 Kết thúc</h2>
-    <div id="finalScore"></div>
-    <div id="rankText"></div>
 
-    <button onclick="restartGame()">🔄 Chơi lại</button>
-    <button onclick="exitGame()">❌ Thoát</button>
-  </div>
-  
-</div>
 /* TRẢ LỜI */
 function answer(i){
   const q = quiz[qIndex];
