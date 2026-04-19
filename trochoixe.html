@@ -138,11 +138,7 @@ body{
   transition:0.2s;
 }
 
-/* HOVER */
-.quiz button:hover{
-  background:#FFD700;
-  color:#000;
-}
+
 
 
 /* EXPLAIN */
@@ -294,12 +290,10 @@ body{
 <!-- ✅ POPUP KẾT THÚC (ĐẶT Ở ĐÂY) -->
 <div class="end-popup" id="endPopup">
   <div class="end-box">
-    <h2>🏁 Kết thúc</h2>
+    
     <div id="finalScore"></div>
     <div id="rankText"></div>
 
-    <button onclick="restartGame()">🔄 Chơi lại</button>
-    <button onclick="exitGame()">❌ Thoát</button>
   </div>
 </div>
 
@@ -729,73 +723,122 @@ function next(){
 /* WIN */
 
 function finishGame(){
-  gameRunning = false;
-   // 🔇 dừng nhạc
+  let rank = "";
+  let advice = "";
+
+  // 🔇 dừng nhạc
   const music = document.getElementById("bgMusic");
   music.pause();
   music.currentTime = 0;
-  let rank = "";
 
+  // 🎯 XẾP LOẠI
   if(score === 5){
     rank = "🏆 Xuất sắc";
-  }else if(score >= 3){
-    rank = "👍 Khá";
-  }else{
-    rank = "💪 Cần cố gắng";
+    advice = "Bạn nắm rất vững kiến thức!";
+  } 
+  else if(score >= 4){
+    rank = "🥇 Khá";
+    advice = "Chỉ cần ôn lại chút là hoàn hảo.";
+  } 
+  else if(score >= 3){
+    rank = "🥈 Trung bình";
+    advice = "Nên chơi lại để nhớ lâu hơn.";
+  } 
+  else{
+    rank = "🥉 Yếu";
+    advice = "Cần ôn lại kiến thức cơ bản.";
   }
 
-  document.getElementById("finalScore").innerHTML =
-    `<h3>Điểm: ${score}/5</h3>`;
+  // hiện popup
+  const popup = document.getElementById("endPopup");
+  popup.style.display = "flex";
 
-  document.getElementById("rankText").innerHTML =
-    `<h3>${rank}</h3>`;
+  // nội dung
+  document.getElementById("finalScore").innerHTML = `
+    <h2>🎉 Kết thúc</h2>
+    <h3 style="color:#FFD700">Điểm: ${score}/5</h3>
+  `;
 
-  document.getElementById("endPopup").style.display = "flex";
+  document.getElementById("rankText").innerHTML = `
+    <h3 style="color:#00ffcc">${rank}</h3>
+    <p style="color:#00cc66">${advice}</p>
+
+    <button onclick="restartGame()">🔄 Chơi lại</button>
+    <button onclick="exitGame()">❌ Thoát</button>
+  `;
 }
 /* GAME OVER */
 function gameOver(){
   gameRunning = false;
-// 🔇 dừng nhạc
+
+  // 🔇 dừng nhạc
   const music = document.getElementById("bgMusic");
   music.pause();
   music.currentTime = 0;
-  document.getElementById("finalScore").innerHTML =
-    `<h3>💀 Hết máu<br>Điểm: ${score}/5</h3>`;
 
-  document.getElementById("rankText").innerHTML =
-    `<h3>😢 Thử lại nhé!</h3>`;
+  // nội dung chính
+  document.getElementById("finalScore").innerHTML = `
+    <h2 style="color:#fff;">💀 Hết máu</h2>
+    <h3 style="color:#fff;">Điểm: ${score}/5</h3>
+  `;
 
+  // nội dung phụ + nút
+  document.getElementById("rankText").innerHTML = `
+    <h3 style="color:#fff;">😢 Thử lại nhé!</h3>
+
+    <button onclick="restartGame()">🔄 Chơi lại</button>
+    <button onclick="exitGame()">❌ Thoát</button>
+  `;
+
+  // hiển thị popup
   document.getElementById("endPopup").style.display = "flex";
 }
-  
-function restartGame(){
-  document.getElementById("endPopup").style.display = "none";
-  document.getElementById("menu").style.display = "none";
 
+function resetGame(){
+  // reset obstacle (giống resetBall)
+  obs.style.transition = "none";
+  obs.style.right = "-100px";
+
+  // reset trạng thái
+  gameRunning = false;
+  obstacleMoving = false;
+
+  // reset dữ liệu
   score = 0;
   health = 3;
   qIndex = 0;
 
+  // reset UI
+  document.getElementById("score").innerText = 0;
+  document.getElementById("health").innerHTML = "";
+
+  // ẩn quiz + popup
+  document.getElementById("quizBox").style.display = "none";
+  document.getElementById("endPopup").style.display = "none";
+}
+/* CHƠI LẠI */
+function restartGame(){
+
+  // reset trước
+  resetGame();
+
+  // ẩn menu nếu có
+  document.getElementById("menu").style.display = "none";
+
+  // 🔊 bật nhạc lại
+  const music = document.getElementById("bgMusic");
+  music.currentTime = 0;
+  music.play().catch(()=>{});
+
+  // random lại câu hỏi
   quiz = getRandomQuestions();
 
+  // render máu
   renderHealth();
-  document.getElementById("score").innerText = 0;
 
+  // bắt đầu game
   gameRunning = true;
   spawnObstacle();
-}
-/* RESET */
-function resetGame(){
-  document.getElementById("menu").style.display="flex";
-  gameRunning = false;
-
-  // reset obstacle
-  obs.style.transition="none";
-  obs.style.right="-100px";
-
-  // reset animation
-  document.querySelector(".road").style.animationPlayState = "running";
-  document.querySelector(".scenery").style.animationPlayState = "running";
 }
 </script>
 
