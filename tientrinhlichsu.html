@@ -284,14 +284,13 @@ body{
   <div class="close" onclick="closePanel()">✖</div>
 
   <div class="tabs">
-    <button onclick="showTab('info')" class="active">Bối cảnh</button>
-    <button onclick="showTab('battle')">Chiến công</button>
-    <button onclick="showTab('person')">Nhân vật</button>
+    <button onclick="showTab('info')" class="active">Bối cảnh lịch sử</button>
+    <button onclick="showTab('battle')">Chiến công tiêu biểu</button>
   </div>
 
   <div id="info" class="tab-content active"></div>
   <div id="battle" class="tab-content"></div>
-  <div id="person" class="tab-content"></div>
+
 
 </div>
 
@@ -312,28 +311,115 @@ function openPanel(id){
   let panel = document.getElementById("panel");
   panel.classList.add("active");
 
-  let info="", battle="", person="";
+  let info="", battle="";
 
-  if(id==1){
-    info="1945–1954: Kháng chiến chống Pháp.";
-    battle="<ul><li>Việt Bắc</li><li>Biên giới</li><li>Điện Biên Phủ</li></ul>";
-    person="<ul><li>Hồ Chí Minh</li><li>Võ Nguyên Giáp</li></ul>";
-  }
-  if(id==2){
-    info="1954–1975: Kháng chiến chống Mỹ.";
-    battle="<ul><li>Đồng khởi</li><li>Ấp Bắc</li><li>Hồ Chí Minh</li></ul>";
-    person="<ul><li>Nguyễn Văn Trỗi</li><li>Tố Hữu</li></ul>";
-  }
-  if(id==3){
-    info="1975–1986: Xây dựng đất nước.";
-    battle="<ul><li>Bảo vệ biên giới</li></ul>";
-    person="<ul><li>Lê Duẩn</li><li>Phạm Văn Đồng</li></ul>";
-  }
   if(id==4){
-    info="1986–nay: Đổi mới, hội nhập.";
-    battle="<ul><li>Đổi mới</li><li>ASEAN</li></ul>";
-    person="<ul><li>Nguyễn Văn Linh</li><li>Võ Văn Kiệt</li></ul>";
-  }
+  info = `
+  <b>Giai đoạn 1945–1954: Hình thành và trưởng thành trong kháng chiến chống thực dân Pháp</b><br><br>
+  - Ngay sau Cách mạng Tháng Tám năm 1945, lực lượng Công an nhân dân, trong đó có lực lượng An ninh nhân dân, được thành lập với nhiệm vụ trọng yếu là bảo vệ chính quyền cách mạng non trẻ. Trong bối cảnh thù trong, giặc ngoài đan xen, lực lượng An ninh đã nhanh chóng tổ chức, xây dựng mạng lưới, chủ động phát hiện, đấu tranh làm thất bại các âm mưu phá hoại của các thế lực phản động, gián điệp và tay sai của thực dân Pháp.<br><br>
+  - Trong suốt cuộc kháng chiến chống Pháp, lực lượng An ninh nhân dân đã lập nhiều chiến công xuất sắc trong bảo vệ cơ quan đầu não của Đảng, Nhà nước, giữ gìn bí mật quốc gia, bảo vệ an toàn các chiến dịch quân sự quan trọng. Đây là giai đoạn đặt nền móng cho truyền thống “tuyệt đối trung thành, mưu trí, dũng cảm” của lực lượng.
+  <br><br>
+  - Vai trò của lực lượng ANND giai đoạn này:<br>
++ Bảo vệ tuyệt đối an toàn Chính phủ, Chủ tịch Hồ Chí Minh và các cơ quan đầu não của Đảng.<br>
++ Đấu tranh làm thất bại các tổ chức phản cách mạng như Việt Quốc, Việt Cách.<br>
++ Phát hiện, bóc gỡ nhiều mạng lưới gián điệp, biệt kích do thực dân Pháp cài lại.<br>
++ Bảo vệ an toàn căn cứ địa Việt Bắc – “thủ đô kháng chiến”.<br>
++ Đảm bảo bí mật, an toàn thông tin phục vụ các chiến dịch lớn, đặc biệt là Điện Biên Phủ (1954).`;
+
+  battle = `
+  <ul>
+    <li>1.Vụ án Ôn Như Hầu (1946) – Chiến công đầu tiên đặt nền móng cho lực lượng An ninh nhân dân</li>
+    <li>2.Đánh đắm Thông báo hạm A-mio-đanh-vin (1950) - Chiến công chói ngời trang sử truyền thống của lực lượng An ninh nhân dân</li>
+    <li>3.Khám phá tổ chức gián điệp do đế quốc Mỹ và thực dân Pháp cài lại ở Hà Nội, Hải Phòng, Nam Định (Chuyên án C30, 1954 - 1958)</li>
+  </ul>`;
+
+  person = `
+  <ul>
+    <li>:contentReference[oaicite:0]{index=0}</li>
+    <li>:contentReference[oaicite:1]{index=1}</li>
+  </ul>`;
+}
+
+if(id==3){
+  info = `
+  <b>Giai đoạn 1954–1975: Phát triển và lập nhiều chiến công trong kháng chiến chống Mỹ</b><br><br>
+  - Sau năm 1954, lực lượng An ninh nhân dân được củng cố và phát triển mạnh mẽ ở cả hai miền. Ở miền Bắc, lực lượng tập trung bảo vệ công cuộc xây dựng chủ nghĩa xã hội, đấu tranh chống gián điệp, biệt kích, bảo vệ nội bộ và an ninh chính trị. Ở miền Nam, lực lượng An ninh hoạt động bí mật, bám dân, xây dựng cơ sở cách mạng, thu thập tin tức tình báo, góp phần quan trọng vào cuộc đấu tranh giải phóng miền Nam.<br><br>
+  - Lực lượng An ninh đã phá nhiều chuyên án lớn, làm thất bại các kế hoạch tình báo của địch, góp phần bảo vệ lực lượng cách mạng và phục vụ thắng lợi của các chiến dịch lớn. Đây là giai đoạn thể hiện rõ bản lĩnh, trí tuệ và sự hy sinh thầm lặng của lực lượng An ninh nhân dân.
+  <br><br>
+  - Vai trò của lực lượng ANND giai đoạn này:<br>
++ Phá hàng loạt chuyên án gián điệp, biệt kích xâm nhập miền Bắc (các toán biệt kích Mỹ - ngụy).<br>
++ Bóc gỡ mạng lưới tình báo, nội gián hoạt động phá hoại hậu phương XHCN.<br>
++ Xây dựng lực lượng an ninh bí mật tại miền Nam, bám dân, bám địa bàn.<br>
++ Thu thập tin tức tình báo chiến lược phục vụ các chiến dịch lớn.<br>
++ Bảo vệ an toàn các cơ quan lãnh đạo cách mạng ở cả hai miền.`;
+
+
+  battle = `
+  <ul>
+    <li>1.Chiến công của Đoàn 180 An ninh vũ trang miền Nam góp phần đánh bại cuộc hành quân Junction City của Mĩ</li>
+    <li>2.Chiến công của Lực lượng an ninh T4 trong cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968</li>
+    <li>3.Chiến công của Lực lượng Bảo vệ an ninh nội bộ và văn hóa tư tưởng trong việc vạch trần và bắt giữ tên nội gián Võ Văn Ba, bí số X92</li>
+    <li>4.Chiến công của Lực lượng An ninh miền Nam trong cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968</li>
+  </ul>`;
+
+  person = `
+  <ul>
+    <li>:contentReference[oaicite:2]{index=2}</li>
+    <li>:contentReference[oaicite:3]{index=3}</li>
+  </ul>`;
+}
+
+if(id==2){
+  info = `
+  <b>Giai đoạn 1975–1986: Bảo vệ an ninh quốc gia, giữ vững ổn định sau thống nhất</b><br><br>
+  - Sau khi đất nước thống nhất, lực lượng An ninh nhân dân bước vào giai đoạn mới với nhiệm vụ bảo vệ an ninh quốc gia trên phạm vi cả nước. Trong bối cảnh tình hình chính trị – xã hội còn nhiều khó khăn, lực lượng đã tập trung đấu tranh chống các hoạt động chống phá của các thế lực thù địch, phản động trong và ngoài nước.<br><br>
+  - Nhiều chuyên án lớn được triển khai, tiêu biểu như các hoạt động đấu tranh chống nội phản, gián điệp, bảo vệ biên giới và chủ quyền quốc gia. Lực lượng An ninh tiếp tục khẳng định vai trò nòng cốt trong bảo vệ Đảng, Nhà nước và nhân dân.
+  <br><br>
+  - Vai trò của lực lượng ANND giai đoạn này:<br>
++ Đấu tranh triệt phá các tổ chức phản động trong và ngoài nước móc nối phá hoại.<br>
++ Ngăn chặn hoạt động gián điệp, tình báo nước ngoài.<br>
++ Bảo vệ an ninh biên giới Tây Nam và phía Bắc.<br>
++ Giữ vững ổn định chính trị – xã hội trong giai đoạn khó khăn sau chiến tranh.`;
+
+  battle = `
+  <ul>
+    <li>1.Chiến công của lực lượng An ninh nhân dân trong Chuyên án “Cao nguyên F101”</li>
+    <li>2.Chiến công của lực lượng An ninh nhân dân trong thắng lợi Kế hoạch phản gián CM12</li>
+  </ul>`;
+
+  person = `
+  <ul>
+    <li>:contentReference[oaicite:4]{index=4}</li>
+    <li>:contentReference[oaicite:5]{index=5}</li>
+  </ul>`;
+}
+
+if(id==1){
+  info = `
+  <b>Giai đoạn 1986–nay: Đổi mới, hiện đại hóa và hội nhập quốc tế</b><br><br>
+  - Từ năm 1986, đất nước bước vào thời kỳ Đổi mới, đặt ra nhiều yêu cầu mới đối với nhiệm vụ bảo vệ an ninh quốc gia. Lực lượng An ninh nhân dân đã chủ động đổi mới toàn diện về tổ chức, phương thức hoạt động, ứng dụng khoa học – công nghệ, nâng cao chất lượng nghiệp vụ.<br><br>
+  - Trong bối cảnh hội nhập quốc tế sâu rộng, lực lượng An ninh tập trung đấu tranh với các thách thức an ninh phi truyền thống như an ninh mạng, tội phạm công nghệ cao, an ninh kinh tế và âm mưu “diễn biến hòa bình”. Đồng thời, lực lượng không ngừng xây dựng theo hướng cách mạng, chính quy, tinh nhuệ, từng bước hiện đại, đáp ứng yêu cầu nhiệm vụ trong tình hình mới.
+   <br><br>
+  - Vai trò của lực lượng ANND giai đoạn này:<br>
++ Đấu tranh làm thất bại âm mưu “diễn biến hòa bình”, bạo loạn lật đổ.<br>
++ Triệt phá nhiều đường dây tội phạm công nghệ cao, lừa đảo xuyên quốc gia.<br>
++ Bảo vệ an ninh mạng, an ninh dữ liệu quốc gia trong thời đại số.<br>
++ Phát hiện, xử lý các vụ án kinh tế lớn, tham nhũng nghiêm trọng.<br>
++ Đảm bảo an ninh cho các sự kiện chính trị – đối ngoại quan trọng của đất nước.`;
+
+  battle = `
+  <ul>
+    <li>Đấu tranh phòng chống tội phạm công nghệ cao</li>
+    <li>Bảo vệ an ninh mạng, an ninh dữ liệu quốc gia</li>
+    <li>Ngăn chặn âm mưu “diễn biến hòa bình”</li>
+  </ul>`;
+
+  person = `
+  <ul>
+    <li>:contentReference[oaicite:6]{index=6}</li>
+    <li>:contentReference[oaicite:7]{index=7}</li>
+  </ul>`;
+}
 
   document.getElementById("info").innerHTML=info;
   document.getElementById("battle").innerHTML=battle;
