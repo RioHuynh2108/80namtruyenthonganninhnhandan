@@ -52,6 +52,7 @@ body{
 
 /* CAR */
 .car{
+  transform: scaleX(1) !important;
   position:absolute;
   bottom:70px;
   left:10px;
@@ -93,7 +94,7 @@ body{
   max-width:380px;
 
   background:rgba(0,0,0,0.85);
-  padding:12px;
+  padding:14px;
   border-radius:12px;
 
   display:none;
@@ -102,25 +103,47 @@ body{
 
 /* QUESTION */
 #question{
-  color:rgb(250, 196, 196);
-}
+  color:#FFD700;
   font-size:15px;
-  margin-bottom:10px;
+  margin-bottom:12px;
   line-height:1.4;
 }
 
-/* ANSWERS */
+/* BOX CHỨA ĐÁP ÁN */
+#answers{
+  display:flex;
+  flex-direction:column;
+  gap:8px; /* 🔥 khoảng cách đều */
+}
+
+/* NÚT ĐÁP ÁN */
 .quiz button{
-  display:block;
   width:100%;
-  margin:5px 0;
-  padding:10px;
+  padding:12px;
+
   border:none;
   border-radius:10px;
+
   background:#fff;
   color:#000;
+
   font-size:14px;
+  text-align:left;
+
+  min-height:48px; /* 🔥 chiều cao đều */
+  display:flex;
+  align-items:center;
+
+  cursor:pointer;
+  transition:0.2s;
 }
+
+/* HOVER */
+.quiz button:hover{
+  background:#FFD700;
+  color:#000;
+}
+
 
 /* EXPLAIN */
 #explainBox{
@@ -130,22 +153,75 @@ body{
   background:rgba(0,0,0,0.7);
   font-size:14px;
 }
+/* POPUP KẾT THÚC */
+.end-popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:50;
+}
 
-/* MENU */
+.end-box{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  width:90%;
+  max-width:350px;
+  text-align:center;
+}
+
+.end-box h2{
+  color:#FFD700;
+}
+
+.end-box button{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#FFD700;
+  font-weight:bold;
+}
 .menu{
   position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  text-align:center;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between; /* 🔥 tách trên - dưới */
+  align-items:center;
+  padding:40px 0;
   z-index:20;
 }
 
+/* TITLE */
+.menu h2{
+  margin-top:20px;
+  font-size:22px;
+  color:#FFD700;
+}
+
+/* NHÓM NÚT */
+.menu .menu-buttons{
+  margin-bottom:40px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
 .menu button{
-  width:180px;
+  width:200px;
   padding:12px;
-  margin:8px;
-  font-size:15px;
+  font-size:16px;
   border:none;
   border-radius:10px;
   background:#FFD700;
@@ -187,13 +263,16 @@ body{
 <div class="game">
 
   <!-- MENU -->
-  <div class="menu" id="menu">
-    <h2>🚓 VƯỢT CHƯỚNG NGẠI VẬT</h2>
+<div class="menu" id="menu">
+  <h2>🚓 VƯỢT CHƯỚNG NGẠI VẬT</h2>
+
+  <div class="menu-buttons">
     <button onclick="startGame()">▶️ Bắt đầu</button>
     <button onclick="exitGame()">❌ Thoát</button>
-    
   </div>
-<audio id="bgMusic" src="nhacdabong.mp3" loop></audio>
+</div>
+
+<audio id="bgMusic" src="nhacduaxe.mp3" loop></audio>
   <!-- UI -->
   <div class="ui">
     Điểm: <span id="score">0</span>
@@ -588,7 +667,19 @@ function showQuiz(){
     ansBox.innerHTML += `<button onclick="answer(${i})">${ans}</button>`;
   });
 }
+  
+<!-- POPUP KẾT THÚC -->
+<div class="end-popup" id="endPopup">
+  <div class="end-box">
+    <h2>🏁 Kết thúc</h2>
+    <div id="finalScore"></div>
+    <div id="rankText"></div>
 
+    <button onclick="restartGame()">🔄 Chơi lại</button>
+    <button onclick="exitGame()">❌ Thoát</button>
+  </div>
+  
+</div>
 /* TRẢ LỜI */
 function answer(i){
   const q = quiz[qIndex];
@@ -636,26 +727,63 @@ function next(){
 }
 
 /* WIN */
+
 function finishGame(){
- 
-  alert("🏁 Về đích!\nĐiểm: " + score + "/5");
+  gameRunning = false;
    // 🔇 dừng nhạc
   const music = document.getElementById("bgMusic");
   music.pause();
   music.currentTime = 0;
-  resetGame();
-}
+  let rank = "";
 
+  if(score === 5){
+    rank = "🏆 Xuất sắc";
+  }else if(score >= 3){
+    rank = "👍 Khá";
+  }else{
+    rank = "💪 Cần cố gắng";
+  }
+
+  document.getElementById("finalScore").innerHTML =
+    `<h3>Điểm: ${score}/5</h3>`;
+
+  document.getElementById("rankText").innerHTML =
+    `<h3>${rank}</h3>`;
+
+  document.getElementById("endPopup").style.display = "flex";
+}
 /* GAME OVER */
 function gameOver(){
-  alert("💀 Hết máu!\nĐiểm: " + score);
-  // 🔇 dừng nhạc
+  gameRunning = false;
+// 🔇 dừng nhạc
   const music = document.getElementById("bgMusic");
   music.pause();
   music.currentTime = 0;
-  resetGame();
-}
+  document.getElementById("finalScore").innerHTML =
+    `<h3>💀 Hết máu<br>Điểm: ${score}/5</h3>`;
 
+  document.getElementById("rankText").innerHTML =
+    `<h3>😢 Thử lại nhé!</h3>`;
+
+  document.getElementById("endPopup").style.display = "flex";
+}
+  
+function restartGame(){
+  document.getElementById("endPopup").style.display = "none";
+  document.getElementById("menu").style.display = "none";
+
+  score = 0;
+  health = 3;
+  qIndex = 0;
+
+  quiz = getRandomQuestions();
+
+  renderHealth();
+  document.getElementById("score").innerText = 0;
+
+  gameRunning = true;
+  spawnObstacle();
+}
 /* RESET */
 function resetGame(){
   document.getElementById("menu").style.display="flex";
