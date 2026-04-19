@@ -234,8 +234,8 @@ body{
 
 <div class="menu">
   <button onclick="showContent('gioithieu1',1)">1️⃣ Giới thiệu nhóm tác giả</button>
-  <button onclick="showContent('gioithieu2',2)">2️⃣ Ý tưởng tham gia</button>
-  <button onclick="showContent('gioithieu3',3)">3️⃣ Mục tiêu và định hướng</button>
+  <button onclick="showContent('gioithieu2',2)">2️⃣ Ý tưởng thiết kế</button>
+  <button onclick="showContent('gioithieu3',3)">3️⃣ Mục tiêu, thông điệp và định hướng</button>
   <button onclick="showContent('camnghi',4)">4️⃣ Cảm nghĩ của mỗi thành viên</button>
 </div>
 
@@ -243,23 +243,29 @@ body{
 <div id="gioithieu1" class="content">
   <h3>Giới thiệu nhóm</h3>
   <video controls>
-    <source src="gioithieutacgia.mp4" type="video/mp4">
+    <source src="videonhomtacgia.mp4" type="video/mp4">
   </video>
 </div>
 
+
 <!-- CONTENT 2 -->
 <div id="gioithieu2" class="content">
-  <h3>Ý tưởng</h3>
-  <p id="yTuongText" style="display:none;">Ý tưởng thiết kế trang web trình chiếu tương tác cho toàn bộ bài dự thi được xây dựng theo định hướng hiện đại, trực quan và mang tính trải nghiệm cao, nhằm chuyển tải nội dung một cách sinh động, dễ tiếp cận nhưng vẫn bảo đảm tính chính trị, học thuật và trang trọng của một công trình nghiên cứu về truyền thống 80 năm của lực lượng An ninh nhân dân. Trang web không chỉ đơn thuần là nơi trình bày nội dung bài viết mà còn là một “không gian số” tái hiện lại hành trình lịch sử, giúp người xem có thể tương tác, khám phá và cảm nhận sâu sắc hơn về những chặng đường phát triển của lực lượng.
+  <h3>Ý tưởng thiết kế trang web trình chiếu tương tác</h3>
+
+  <p id="yTuongText" style="display:none;">
+    Ý tưởng thiết kế trang web trình chiếu tương tác cho toàn bộ bài dự thi được xây dựng theo định hướng hiện đại, trực quan và mang tính trải nghiệm cao, nhằm chuyển tải nội dung một cách sinh động, dễ tiếp cận nhưng vẫn bảo đảm tính chính trị, học thuật và trang trọng của một công trình nghiên cứu về truyền thống 80 năm của lực lượng An ninh nhân dân. Trang web không chỉ đơn thuần là nơi trình bày nội dung bài viết mà còn là một “không gian số” tái hiện lại hành trình lịch sử, giúp người xem có thể tương tác, khám phá và cảm nhận sâu sắc hơn về những chặng đường phát triển của lực lượng.
 Về cấu trúc, trang web được thiết kế thành các phân khu rõ ràng. Mỗi phần được trình bày dưới dạng các “slide” hoặc “section” cuộn dọc (scroll storytelling), kết hợp giữa văn bản, hình ảnh tư liệu, sơ đồ và các hiệu ứng chuyển động nhẹ nhàng nhằm tăng tính hấp dẫn. Đặc biệt, các mốc lịch sử quan trọng sẽ được thể hiện dưới dạng timeline tương tác, cho phép người xem nhấp vào từng giai đoạn để tìm hiểu chi tiết về các sự kiện, chiến công tiêu biểu.
 Bên cạnh đó, trang web tích hợp các yếu tố đa phương tiện như ảnh, video, infographic, giúp nội dung không bị khô cứng mà trở nên trực quan hơn. Một số phần có thể thiết kế dạng câu hỏi – đáp tương tác hoặc trắc nghiệm ngắn để người xem tự kiểm tra kiến thức, qua đó tăng tính tham gia và ghi nhớ nội dung.
 Về giao diện, trang web sử dụng tông màu chủ đạo trang nghiêm (đỏ, vàng, xanh đậm), kết hợp biểu tượng, hình ảnh đặc trưng của lực lượng Công an nhân dân, bảo đảm tính nhận diện và phù hợp với chủ đề chính trị. Bố cục được tối ưu cho cả máy tính và thiết bị di động, giúp người xem dễ dàng truy cập ở mọi nền tảng.
 Tổng thể, trang web trình chiếu tương tác không chỉ là công cụ hỗ trợ trình bày bài dự thi mà còn là một sản phẩm ứng dụng công nghệ, thể hiện tư duy đổi mới, sáng tạo của nhóm tác giả, góp phần lan tỏa giá trị lịch sử và ý nghĩa thời đại của truyền thống lực lượng An ninh nhân dân trong môi trường số hiện nay.
- <button class="read-btn"  
-  data-title="🔊 Nghe nội dung ý tưởng tham gia cuộc thi" 
-  onclick="docNoiDung('yTuongText', this)">
-  🔊 Nghe nội dung ý tưởng tham gia cuộc thi
-  </button></p></p>
+  </p>
+
+  <button class="read-btn"
+    data-title="🔊 Nghe nội dung ý tưởng thiết kế trang web trình chiếu tương tác"
+    onclick="docNoiDung('yTuongText', this)">
+    🔊 Nghe nội dung ý tưởng thiết kế trang web trình chiếu tương tác
+  </button>
+
 </div>
 
 <!-- CONTENT 3 -->
@@ -288,11 +294,14 @@ Với tinh thần đó, nhóm tác giả mong muốn góp phần nhỏ bé vào 
   🔊 Nghe nội dung thông điệp tham gia cuộc thi
 </button></p></p>
 
-  <p id="dinhhuongText" style="display:none;">(Định hướng)</p>
+  <p id="dinhhuongText" style="display:none;">Định hướng sau khi tham gia cuộc thi không chỉ dừng lại ở việc hoàn thiện bài dự thi mà còn hướng tới việc phát triển các sản phẩm phần mềm, ứng dụng số phục vụ công tác tuyên truyền một cách lâu dài, hiệu quả và phù hợp với xu thế chuyển đổi số hiện nay. Trên cơ sở những nội dung đã nghiên cứu, nhóm tác giả xác định tiếp tục hoàn thiện và mở rộng trang web trình chiếu tương tác thành một nền tảng tuyên truyền trực tuyến, tích hợp đa phương tiện như video, infographic, timeline lịch sử và các mô-đun học tập tương tác.
+Trong thời gian tới, có thể phát triển ứng dụng trên nền tảng di động (mobile app) nhằm giúp cán bộ, chiến sĩ và người dân dễ dàng tiếp cận kiến thức về truyền thống lực lượng An ninh nhân dân mọi lúc, mọi nơi. Ứng dụng có thể tích hợp các tính năng như: học tập theo chủ đề, thi trắc nghiệm, nghe nội dung bằng giọng đọc AI, và hệ thống đánh giá kết quả để tăng tính tương tác và ghi nhớ. Bên cạnh đó, việc ứng dụng trí tuệ nhân tạo trong phân tích hành vi người dùng sẽ giúp cá nhân hóa nội dung tuyên truyền, từ đó nâng cao hiệu quả tiếp nhận thông tin.
+Ngoài ra, định hướng phát triển còn bao gồm việc kết nối hệ thống với các nền tảng mạng xã hội, xây dựng các nội dung ngắn gọn, trực quan để lan tỏa rộng rãi trong cộng đồng, đặc biệt là thế hệ trẻ. Việc kết hợp giữa công nghệ và nội dung chính trị – lịch sử sẽ góp phần đổi mới phương thức tuyên truyền, làm cho nội dung trở nên sinh động, hấp dẫn hơn nhưng vẫn bảo đảm tính chính xác, trang nghiêm.
+Tổng thể, định hướng này nhằm xây dựng một hệ sinh thái tuyên truyền số hiện đại, góp phần nâng cao nhận thức, bồi dưỡng lòng yêu nước, tinh thần trách nhiệm và ý thức bảo vệ an ninh Tổ quốc trong tình hình mới.</p>
   <button class="read-btn" 
   data-title="🔊 Nghe nội dung định hướng tham gia cuộc thi" 
   onclick="docNoiDung('dinhhuongText', this)">
-  🔊 Nghe nội dung định hướng tham gia cuộc thi
+  🔊 Nghe nội dung định hướng sau khi tham gia cuộc thi
 </button></p></p>
 
 </div>
@@ -387,28 +396,48 @@ function toggleMusic(){
 let speaking=false;
 let currentUtterance=null;
 
+
 function docNoiDung(id, btn){
-  const text=document.getElementById(id).innerText;
+  const text = document.getElementById(id).innerText;
 
-  if(!speaking){
-    currentUtterance = new SpeechSynthesisUtterance(text);
-    currentUtterance.lang='vi-VN';
-
-    currentUtterance.onend=()=>{
-      speaking=false;
-      btn.innerText = btn.dataset.title;
-    };
-
-    speechSynthesis.speak(currentUtterance);
-    speaking=true;
-
-    btn.innerText="⏹ Dừng";
-  }else{
+  // 🔁 Nếu đang đọc → dừng
+  if(speaking){
     speechSynthesis.cancel();
-    speaking=false;
-
+    speaking = false;
     btn.innerText = btn.dataset.title;
+    return;
   }
+
+  // 🔊 Tạo giọng đọc
+  currentUtterance = new SpeechSynthesisUtterance(text);
+
+  // 🔥 chọn giọng tiếng Việt tốt nhất
+  const voices = speechSynthesis.getVoices();
+  const vietnameseVoice = voices.find(v => v.lang === "vi-VN");
+
+  if(vietnameseVoice){
+    currentUtterance.voice = vietnameseVoice;
+  }
+
+  currentUtterance.lang = "vi-VN";
+  currentUtterance.rate = 1;   // tốc độ (0.9–1.1 là tự nhiên nhất)
+  currentUtterance.pitch = 1;  // cao độ
+  currentUtterance.volume = 1;
+
+  // 🔚 Khi đọc xong
+  currentUtterance.onend = () => {
+    speaking = false;
+    btn.innerText = btn.dataset.title;
+  };
+
+  // 🛑 Nếu có audio cũ → hủy
+  speechSynthesis.cancel();
+
+  // ▶️ Bắt đầu đọc
+  speechSynthesis.speak(currentUtterance);
+  speaking = true;
+
+  btn.innerText = "⏹ Dừng";
 }
 </script>
 
