@@ -14,20 +14,20 @@ body{
   touch-action:manipulation;
 }
 
-/* GAME */
+/* FIX mobile height */
 .game{
   position:relative;
   width:100%;
-  height:100vh;
+  height:100dvh; /* 🔥 fix mobile */
   overflow:hidden;
 }
 
 /* SCENERY */
 .scenery{
   position:absolute;
-  bottom:100px;
+  bottom:80px;
   width:200%;
-  height:40vh; /* 🔥 responsive */
+  height:35vh;
   background:url('cayxanhto.jpg') repeat-x;
   background-size:contain;
   animation:moveBg 20s linear infinite;
@@ -39,7 +39,7 @@ body{
   position:absolute;
   bottom:0;
   width:200%;
-  height:100px;
+  height:80px;
   background:#333;
   animation:moveBg 2s linear infinite;
   z-index:2;
@@ -53,32 +53,32 @@ body{
 /* CAR */
 .car{
   position:absolute;
-  bottom:90px;
-  left:20px;
-  font-size:60px; /* 🔥 nhỏ lại cho mobile */
+  bottom:70px;
+  left:10px;
+  font-size:50px;
   z-index:3;
 }
 
 /* OBSTACLE */
 .obstacle{
   position:absolute;
-  bottom:90px;
+  bottom:70px;
   right:-80px;
-  font-size:60px; /* 🔥 nhỏ lại */
+  font-size:50px;
   z-index:3;
 }
 
 /* UI */
 .ui{
   position:absolute;
-  top:10px;
+  top:5px;
   left:10px;
   right:10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   color:#FFD700;
-  font-size:16px;
+  font-size:14px;
   z-index:5;
 }
 
@@ -89,59 +89,47 @@ body{
   left:50%;
   transform:translate(-50%,-50%);
 
-  width:90%;
-  max-width:400px;
+  width:92%;
+  max-width:380px;
 
-  background:rgba(55, 55, 52, 0.9);
-  padding:15px;
-  border-radius:15px;
+  background:rgba(0,0,0,0.85);
+  padding:12px;
+  border-radius:12px;
 
   display:none;
   z-index:10;
 }
 
-/* CÂU HỎI */
+/* QUESTION */
 #question{
-  color:rgb(253, 249, 249);
-  font-size:16px;
-  margin-bottom:12px;
+  color:#fff;
+  font-size:15px;
+  margin-bottom:10px;
+  line-height:1.4;
 }
 
-/* NÚT ĐÁP ÁN */
+/* ANSWERS */
 .quiz button{
   display:block;
   width:100%;
-  margin:6px 0;
+  margin:5px 0;
   padding:10px;
   border:none;
   border-radius:10px;
-  background:#faf6f6;
-  color:#141412; /* 🔥 vàng */
+  background:#fff;
+  color:#000;
   font-size:14px;
-  cursor:pointer;
 }
 
-.quiz button:hover{
-  background:#4f4e4a;
-  color:black;
-}
+/* EXPLAIN */
 #explainBox{
-  margin-top:12px;
+  margin-top:10px;
   padding:10px;
   border-radius:10px;
   background:rgba(0,0,0,0.7);
-  color:#00ff88; /* 🔥 xanh lá */
   font-size:14px;
 }
-.correct{
-  color:#00ff88; /* xanh */
-  font-weight:bold;
-}
 
-.wrong{
-  color:#ff4d4d; /* đỏ */
-  font-weight:bold;
-}
 /* MENU */
 .menu{
   position:absolute;
@@ -153,42 +141,41 @@ body{
 }
 
 .menu button{
-  width:200px;
-  padding:14px;
-  margin:10px;
-  font-size:16px;
+  width:180px;
+  padding:12px;
+  margin:8px;
+  font-size:15px;
   border:none;
   border-radius:10px;
   background:#FFD700;
 }
 
-/* 📱 MOBILE FIX */
+/* 📱 EXTRA MOBILE */
 @media (max-width:480px){
 
   .car{
-    font-size:80px;
-    left:20px;
+    font-size:45px;
   }
 
   .obstacle{
-    font-size:50px;
+    font-size:45px;
   }
 
   .road{
-    height:130px;
+    height:90px;
   }
 
   .scenery{
-    height:35vh;
+    height:30vh;
   }
 
   #question{
-    font-size:13px;
+    font-size:14px;
   }
 
   .quiz button{
-    font-size:15px;
-    padding:10px;
+    font-size:14px;
+    padding:9px;
   }
 }
 </style>
@@ -532,6 +519,14 @@ function gameOver(){
 function resetGame(){
   document.getElementById("menu").style.display="flex";
   gameRunning = false;
+
+  // reset obstacle
+  obs.style.transition="none";
+  obs.style.right="-100px";
+
+  // reset animation
+  document.querySelector(".road").style.animationPlayState = "running";
+  document.querySelector(".scenery").style.animationPlayState = "running";
 }
 </script>
 
