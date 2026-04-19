@@ -476,53 +476,73 @@ function loadQuestion(){
 }
 
 /* THỦ MÔN */
-function moveKeeper(){
-  const k=document.getElementById("keeper");
+function moveKeeper(direction){
+  const k = document.getElementById("keeper");
   k.classList.remove("dive-left","dive-right");
 
-  setTimeout(()=>{
-    Math.random()<0.5 ?
-      k.classList.add("dive-left") :
-      k.classList.add("dive-right");
-  },100);
+  if(direction === "left"){
+    k.classList.add("dive-left");
+  }else{
+    k.classList.add("dive-right");
+  }
 }
 
 /* SHOOT */
 function shoot(i){
-  const q=quiz[current];
-  moveKeeper();
+  const q = quiz[current];
 
-  let correct=(i===q.correct);
+  // 🎯 Xác định hướng sút theo đáp án
+  let shotDirection = (i % 2 === 0) ? "left" : "right";
 
-  const ball=document.getElementById("ball");
-  const effect=document.getElementById("effect");
+  let correct = (i === q.correct);
+
+  // 🧠 Logic thủ môn
+  let keeperDirection;
 
   if(correct){
-    ball.style.transform="translate(-50%,-200px)";
-    effect.innerText="GOAL ⚽";
-    score++;
+    // ✅ đúng → thủ môn đổ ngược hướng
+    keeperDirection = (shotDirection === "left") ? "right" : "left";
   }else{
-    ball.style.transform="translate(-150%,-150px)";
-    effect.innerText="MISS ❌";
+    // ❌ sai → thủ môn đổ đúng hướng
+    keeperDirection = shotDirection;
   }
 
-  document.getElementById("score").innerText=score;
-  effect.style.opacity=1;
+  moveKeeper(keeperDirection);
+
+  const ball = document.getElementById("ball");
+  const effect = document.getElementById("effect");
+
+  // ⚽ hướng bóng bay
+  if(shotDirection === "left"){
+    ball.style.transform = "translate(-150%,-200px)";
+  }else{
+    ball.style.transform = "translate(50%,-200px)";
+  }
+
+  if(correct){
+    effect.innerText = "GOAL ⚽";
+    score++;
+  }else{
+    effect.innerText = "MISS ❌";
+  }
+
+  document.getElementById("score").innerText = score;
+  effect.style.opacity = 1;
+
   document.getElementById("answers").innerHTML="";
 
   setTimeout(()=>{
     showPopup(correct,q);
     resetBall();
 
-    // thủ môn về giữa
+    // quay lại giữa
     setTimeout(()=>{
       document.getElementById("keeper")
         .classList.remove("dive-left","dive-right");
-    },400);
+    },500);
 
   },700);
 }
-
 /* POPUP */
 function showPopup(correct,q){
   document.getElementById("popup").style.display="flex";
