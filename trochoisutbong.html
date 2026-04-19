@@ -39,7 +39,6 @@ button{
 }
 .start{background:#FFD700;}
 .exit{background:#444;color:white}
-
 /* SÂN */
 .field{
   position:relative;
@@ -109,10 +108,11 @@ button{
 <body>
 
 <!-- MENU -->
-<div class="menu" id="menu">
-  <div class="box">
-    <h2>⚽ GAME ANND</h2>
+<div class="start-menu" id="menu">
+  <div class="start-box">
+    <h2>⚽ GAME SÚT BÓNG</h2>
     <button class="start" onclick="startGame()">▶️ Bắt đầu</button>
+    <button class="exit" onclick="exitGame()">❌ Thoát</button>
   </div>
 </div>
 
@@ -132,97 +132,174 @@ button{
 
 <script>
 const questions = [
-  {
-    q: "Sự kiện nào được xem là mốc khởi đầu của lực lượng An ninh nhân dân?",
-    a: ["21/2/1946", "11/3/1948", "19/8/1945", "1954"],
-    correct: 2,
-    ex: "Ngày 19/8/1945 là mốc thành lập Việt Nam Công an vụ – tiền thân của lực lượng CAND, có nhiệm vụ bảo vệ chính quyền cách mạng non trẻ."
-  },
-  {
-    q: "Trong kháng chiến chống Pháp, nhiệm vụ chính của lực lượng An ninh là gì?",
-    a: ["Tuyên truyền quần chúng", "Chống gián điệp, bảo vệ cơ sở cách mạng", "Chỉ huy chiến đấu", "Hậu cần"],
-    correct: 1,
-    ex: "Lực lượng An ninh tập trung bảo vệ nội bộ, chống gián điệp, giữ an toàn cho cách mạng."
-  },
-  {
-    q: "Một chiến công tiêu biểu giai đoạn này là gì?",
-    a: ["Điện Biên Phủ", "Ngăn chặn âm mưu phá hoại chính quyền", "Đánh đồn", "Ngoại giao"],
-    correct: 1,
-    ex: "Lực lượng An ninh góp phần bảo vệ sự tồn tại của Nhà nước non trẻ trước âm mưu phá hoại."
-  },
-  {
-    q: "Ý nghĩa của việc “dựa vào dân” là gì?",
-    a: ["Thu thập thông tin cá nhân", "Tạo sức mạnh toàn dân", "Huy động chiến tranh", "Tuyên truyền"],
-    correct: 1,
-    ex: "Nhân dân là nền tảng giúp lực lượng An ninh hoàn thành nhiệm vụ."
-  },
-  {
-    q: "Năm 1954 gắn với sự kiện nào?",
-    a: ["Kết thúc chiến tranh", "Chia cắt đất nước", "Bắt đầu chống Mỹ", "Hiệp định Giơ-ne-vơ"],
-    correct: 3,
-    ex: "Hiệp định Giơ-ne-vơ là mốc quan trọng, làm thay đổi nhiệm vụ của lực lượng An ninh."
-  },
-  {
-    q: "Nhiệm vụ trọng tâm ở miền Bắc là gì?",
-    a: ["Chi viện miền Nam", "Bảo vệ an ninh chính trị", "Cải cách ruộng đất", "Xây dựng công nghiệp"],
-    correct: 1,
-    ex: "Giữ ổn định chính trị để xây dựng chủ nghĩa xã hội."
-  },
-  {
-    q: "Vai trò của lực lượng An ninh ở miền Nam là gì?",
-    a: ["Hậu phương", "Tình báo, bảo vệ cơ sở cách mạng", "Chỉ huy quân sự", "Di cư"],
-    correct: 1,
-    ex: "Lực lượng hoạt động bí mật, góp phần quan trọng vào thắng lợi."
-  },
-  {
-    q: "Âm mưu địch bị đấu tranh mạnh là gì?",
-    a: ["Chiến tranh đặc biệt", "Chiến tranh cục bộ", "Diễn biến hòa bình", "Lật đổ, phá hoại nội bộ"],
-    correct: 3,
-    ex: "Đây là hoạt động nguy hiểm nhất từ bên trong."
-  },
-  {
-    q: "Ý nghĩa năm 1975 với lực lượng An ninh là gì?",
-    a: ["Giải tán", "Bước sang giai đoạn mới", "Ngoại giao", "Xây dựng"],
-    correct: 1,
-    ex: "Sau 1975, lực lượng hoạt động trên phạm vi cả nước."
-  },
-  {
-    q: "Biểu tượng tiêu biểu của giai đoạn này là ai?",
-    a: ["Nhà khoa học", "Anh hùng LLVTND", "Vận động viên", "Nhà văn"],
-    correct: 1,
-    ex: "Họ là những người hy sinh thầm lặng vì an ninh Tổ quốc."
-  }
+{
+q:`Sự kiện lịch sử nào được xem là mốc khởi đầu quan trọng cho sự hình thành lực lượng An ninh nhân dân, và vai trò chính của lực lượng này trong giai đoạn đầu là gì?`,
+a:[
+"Thành lập Nha Công an Trung ương ngày 21/2/1946; bảo vệ các cơ quan đầu não Đảng, Nhà nước.",
+"Chỉ thị của Hồ Chủ tịch ngày 11/3/1948 về công tác trị an; trấn áp phản cách mạng.",
+"Ngày 19/8/1945; làm nòng cốt bảo vệ chính quyền cách mạng non trẻ.",
+"Thành lập các Tòa án nhân dân; xét xử tội phạm chiến tranh."
+],
+correct:2,
+explain:`Ngày 19/8/1945 là ngày thành lập Việt Nam Công an vụ, tiền thân của lực lượng CAND, với nhiệm vụ cốt lõi là bảo vệ thành quả Cách mạng Tháng Tám và chính quyền nhân dân.`
+},
+
+{
+q:`Trong cuộc kháng chiến chống thực dân Pháp (1945-1954), lực lượng An ninh nhân dân đã đóng vai trò như thế nào trong việc đảm bảo an ninh cho cách mạng?`,
+a:[
+"Chủ yếu tập trung vào công tác tuyên truyền, vận động quần chúng.",
+"Tập trung vào đấu tranh nội bộ, ngăn chặn gián điệp, biệt kích, bảo vệ cơ sở cách mạng, thông tin liên lạc và các đồng chí lãnh đạo.",
+"Trực tiếp chỉ huy các trận đánh trên chiến trường chính.",
+"Phụ trách công tác hậu cần, vận chuyển vũ khí."
+],
+correct:1,
+explain:`Giai đoạn này, lực lượng An ninh tập trung vào nhiệm vụ giữ gìn an ninh nội bộ, chống lại các hoạt động phá hoại của địch, bảo vệ sự an toàn cho cách mạng trong bối cảnh chiến tranh gian khổ.`
+},
+
+{
+q:`Một trong những chiến công nổi bật của lực lượng An ninh trong giai đoạn 1945-1954 là:`,
+a:[
+"Chiến dịch Điện Biên Phủ.",
+"Chiến công trong việc phát hiện và ngăn chặn âm mưu của kẻ địch nhằm phá hoại sự thành lập nước Việt Nam Dân chủ Cộng hòa.",
+"Đánh chiếm các đồn bốt của địch.",
+"Chỉ đạo công tác ngoại giao."
+],
+correct:1,
+explain:`Lực lượng An ninh đã có những đóng góp quan trọng trong việc bảo vệ sự tồn vong của chính quyền cách mạng non trẻ, đấu tranh với các âm mưu phá hoại từ bên trong và bên ngoài.`
+},
+
+{
+q:`Ý nghĩa của việc dựa vào dân trong công tác của lực lượng An ninh nhân dân giai đoạn 1945-1954 là gì?`,
+a:[
+"Chỉ nhằm mục đích thu thập tin tức cá nhân.",
+"Tăng cường sự gắn bó giữa lực lượng An ninh và nhân dân, tạo sức mạnh tổng hợp trong công tác bảo vệ an ninh Tổ quốc.",
+"Huy động sức người, sức của cho chiến trường.",
+"Chỉ là hình thức tuyên truyền."
+],
+correct:1,
+explain:`Nguyên tắc \"dựa vào dân\" là truyền thống quý báu, giúp lực lượng An ninh có được sự ủng hộ, thông tin và sức mạnh cần thiết để hoàn thành nhiệm vụ.`
+},
+
+{
+q:`Mốc thời gian 1954 đánh dấu sự kiện gì quan trọng liên quan đến tình hình đất nước và nhiệm vụ của lực lượng An ninh?`,
+a:[
+"Hoàn toàn kết thúc chiến tranh chống Pháp, miền Bắc được giải phóng.",
+"Đất nước tạm chia cắt thành hai miền, lực lượng An ninh tập trung vào nhiệm vụ xây dựng CNXH ở miền Bắc và đấu tranh giải phóng miền Nam.",
+"Bắt đầu cuộc kháng chiến chống Mỹ.",
+"Ký kết Hiệp định Giơ-ne-vơ về Đông Dương."
+],
+correct:3,
+explain:`Hiệp định Giơ-ne-vơ năm 1954 công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam, nhưng tạm thời chia cắt đất nước. Điều này đặt ra những nhiệm vụ mới cho lực lượng An ninh ở hai miền.`
+},
+
+{
+q:`Trong công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc (1954-1960), nhiệm vụ trọng tâm của lực lượng An ninh nhân dân là gì?`,
+a:[
+"Tập trung hoàn toàn vào việc chi viện cho miền Nam.",
+"Củng cố an ninh chính trị, trật tự an toàn xã hội; đấu tranh chống âm mưu phá hoại của địch, giữ vững thành quả cách mạng miền Bắc.",
+"Thực hiện cải cách ruộng đất.",
+"Xây dựng các khu công nghiệp mới."
+],
+correct:1,
+explain:`Sau khi miền Bắc được giải phóng, lực lượng An ninh có nhiệm vụ then chốt là bảo vệ công cuộc xây dựng chủ nghĩa xã hội, ngăn chặn các hoạt động chống phá của thế lực thù địch.`
+},
+
+{
+q:`Đối với miền Nam trong giai đoạn 1960-1975, lực lượng An ninh nhân dân đã thể hiện vai trò như thế nào?`,
+a:[
+"Chỉ hoạt động ở hậu phương miền Bắc.",
+"Tham gia xây dựng chính quyền cách mạng, thu thập thông tin tình báo, đấu tranh chống các hoạt động phản cách mạng của địch, góp phần vào thắng lợi chung của chiến tranh giải phóng.",
+"Trực tiếp chỉ huy các cuộc tấn công quân sự quy mô lớn.",
+"Vận động nhân dân di cư ra Bắc."
+],
+correct:1,
+explain:`Lực lượng An ninh miền Nam đã hoạt động kiên cường, mật, có vai trò quan trọng trong việc thu thập thông tin, bảo vệ cơ sở cách mạng và góp phần vào thắng lợi của cuộc kháng chiến chống Mỹ.`
+},
+
+{
+q:`Trong cuộc kháng chiến chống Mỹ, cứu nước, một trong những âm mưu thâm độc mà lực lượng An ninh nhân dân đã tích cực đấu tranh là:`,
+a:[
+"Kế hoạch \"Chiến tranh đặc biệt\".",
+"Kế hoạch \"Chiến tranh cục bộ\".",
+"Âm mưu \"Diễn biến hòa bình\".",
+"Kế hoạch \"Nghi\" (phá hoại, gây rối nội bộ)."
+],
+correct:3,
+explain:`(Thường được gọi là âm mưu \"binh biến\", \"lật đổ\" hoặc các hoạt động tình báo, phản động nội địa). Lực lượng An ninh đã tập trung đấu tranh với các hoạt động tình báo, gián điệp, biệt kích, lật đổ, phá hoại từ bên trong do địch hậu thuẫn.`
+},
+
+{
+q:`Ý nghĩa lịch sử của việc thống nhất đất nước năm 1975 đối với lực lượng An ninh nhân dân là gì?`,
+a:[
+"Kết thúc nhiệm vụ, lực lượng An ninh giải tán.",
+"Mở ra một giai đoạn mới với nhiệm vụ bảo vệ an ninh quốc gia trên phạm vi cả nước, thống nhất tổ chức và hoạt động.",
+"Chuyển trọng tâm sang hợp tác quốc tế.",
+"Chỉ tập trung vào việc xây dựng lại cơ sở vật chất."
+],
+correct:1,
+explain:`Sau 1975, lực lượng An ninh chuyển sang giai đoạn mới với nhiệm vụ bảo vệ an ninh, trật tự trên toàn quốc, thống nhất các hoạt động và tổ chức lực lượng.`
+},
+
+{
+q:`Nhân vật hay tập thể nào có thể được xem là biểu tượng cho sự hy sinh, cống hiến của lực lượng An ninh trong giai đoạn này, dù không được nêu tên cụ thể?`,
+a:[
+"Các nhà khoa học đoạt giải Nobel.",
+"Các \"Anh hùng lực lượng vũ trang nhân dân\" trong lĩnh vực an ninh, tình báo, và các cán bộ, chiến sĩ đã hy sinh trên các mặt trận đấu tranh.",
+"Các vận động viên thể thao xuất sắc.",
+"Các nhà văn, nhà thơ tiêu biểu."
+],
+correct:1,
+explain:`Giai đoạn này có rất nhiều cán bộ, chiến sĩ An ninh đã lập nên những chiến công hiển hách, hy sinh thầm lặng để bảo vệ Tổ quốc, và nhiều người đã được tuyên dương Anh hùng.`
+}
 ];
 
 let quiz = [];
 let current = 0;
 let score = 0;
+let lastQuiz = [];
 
-/* RANDOM 5 CÂU */
+/* SHUFFLE */
+function shuffleArray(arr){
+  return [...arr].sort(()=>0.5 - Math.random());
+}
+
+/* RANDOM 5 CÂU (tránh trùng lần trước) */
 function getRandom(){
-  return [...questions].sort(()=>0.5-Math.random()).slice(0,5);
+  let newQuiz;
+  do{
+    newQuiz = shuffleArray(questions).slice(0,5);
+  }while(JSON.stringify(newQuiz) === JSON.stringify(lastQuiz));
+
+  lastQuiz = newQuiz;
+  return newQuiz;
 }
 
 /* START */
 function startGame(){
   document.getElementById("menu").style.display="none";
+
   quiz = getRandom();
   current = 0;
   score = 0;
-  document.getElementById("score").innerText=0;
+
+  document.getElementById("score").innerText = 0;
   loadQuestion();
 }
 
 /* LOAD */
 function loadQuestion(){
   document.getElementById("explainBox").innerHTML="";
+
   const q = quiz[current];
-  document.getElementById("question").innerHTML=`<h3>Câu ${current+1}/5: ${q.q}</h3>`;
-  
+
+  document.getElementById("question").innerHTML =
+    `<h3>Câu ${current+1}/5: ${q.q}</h3>`;
+
   let html="";
   q.a.forEach((ans,i)=>{
     html+=`<button onclick="shoot(${i})">${ans}</button>`;
   });
+
   document.getElementById("answers").innerHTML=html;
 }
 
@@ -230,7 +307,8 @@ function loadQuestion(){
 function moveKeeper(){
   const k=document.getElementById("keeper");
   k.classList.remove("dive-left","dive-right");
-  Math.random()<0.5 ? k.classList.add("dive-left") : k.classList.add("dive-right");
+  Math.random()<0.5 ? k.classList.add("dive-left")
+                    : k.classList.add("dive-right");
 }
 
 /* SHOOT */
@@ -269,7 +347,7 @@ function showExplain(correct,q){
       ${correct?'✅ Đúng':'❌ Sai'}
     </p>
     <p><b>Đáp án:</b> ${q.a[q.correct]}</p>
-    <p><b>Giải thích:</b> ${q.ex}</p>
+    <p><b>Giải thích:</b> ${q.explain}</p>
     <button onclick="next()">👉 Tôi đã hiểu – Chơi tiếp</button>
   `;
 }
@@ -277,7 +355,7 @@ function showExplain(correct,q){
 /* NEXT */
 function next(){
   current++;
-  if(current<quiz.length){
+  if(current < quiz.length){
     loadQuestion();
   }else{
     endGame();
@@ -299,10 +377,32 @@ function resetField(){
 function endGame(){
   document.getElementById("question").innerHTML="🎉 Kết thúc!";
   document.getElementById("answers").innerHTML="";
+
   document.getElementById("explainBox").innerHTML=`
     <h3>Điểm: ${score}/5</h3>
-    <button onclick="startGame()">🔄 Chơi lại</button>
+
+    <button onclick="startGame()" 
+      style="padding:10px;margin:5px;background:#FFD700;border:none;border-radius:8px;">
+      🔄 Chơi lại
+    </button>
+
+    <button onclick="exitGame()" 
+      style="padding:10px;margin:5px;background:#444;color:white;border:none;border-radius:8px;">
+      ❌ Thoát game
+    </button>
   `;
+}
+function exitGame(){
+  // hiệu ứng fade nhẹ
+  document.body.style.opacity = "0";
+
+  setTimeout(()=>{
+    // 👉 nếu bạn có trang menu chính thì sửa link ở đây
+    window.location.href = "trochoitracnghiem.html";
+
+    // 👉 hoặc nếu không có thì dùng:
+    // location.reload(); // quay lại trạng thái ban đầu
+  },300);
 }
 </script>
 
