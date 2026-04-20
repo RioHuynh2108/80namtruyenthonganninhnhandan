@@ -28,7 +28,18 @@ body{
   pointer-events:none;
 }
 
+#bg-image{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
 
+  background:url('anhnen2.png') no-repeat center center;
+  background-size:cover;
+
+  z-index:-1; /* nằm dưới game */
+}
 /* TITLE */
 .title{
   text-align:center;
@@ -240,9 +251,7 @@ body{
 
 <body>
 
-<video id="video-background" autoplay loop muted playsinline>
-  <source src="videonen.mp4">
-</video>
+<div id="bg-image"></div>
 
 <div class="overlay">
 <audio id="bg-music" loop>
