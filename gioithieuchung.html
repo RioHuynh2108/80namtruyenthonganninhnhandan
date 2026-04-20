@@ -251,10 +251,10 @@ body{
 <!-- CONTENT 1 -->
 <div id="gioithieu1" class="content">
   <h3>Giới thiệu nhóm</h3>
-  <video controls>
-    <source src="videonhomtacgia.mp4" type="video/mp4">
-  </video>
-</div>
+<video controls muted id="video1">
+  <source src="videonhomtacgia.mp4" type="video/mp4">
+</video>
+
 
 
 <!-- CONTENT 2 -->
@@ -381,7 +381,17 @@ function go(link){
   document.body.style.opacity="0";
   setTimeout(()=>{window.location=link},300);
 }
+<script>
+const v = document.getElementById("video1");
 
+v.addEventListener("loadedmetadata", ()=>{
+  v.play();
+  setTimeout(()=>{
+    v.pause();
+    v.currentTime = 1;
+  },200);
+});
+</script>
 /* SHOW CONTENT + PROGRESS */
 function showContent(id, step){
   document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
