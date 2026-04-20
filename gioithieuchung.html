@@ -381,17 +381,6 @@ function go(link){
   document.body.style.opacity="0";
   setTimeout(()=>{window.location=link},300);
 }
-<script>
-const v = document.getElementById("video1");
-
-v.addEventListener("loadedmetadata", ()=>{
-  v.play();
-  setTimeout(()=>{
-    v.pause();
-    v.currentTime = 1;
-  },200);
-});
-</script>
 /* SHOW CONTENT + PROGRESS */
 function showContent(id, step){
   document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
@@ -458,7 +447,17 @@ function docNoiDung(id, btn){
 
   btn.innerText = "⏹ Dừng";
 }
+const v = document.getElementById("video1");
+
+v.addEventListener("loadedmetadata", ()=>{
+  v.play();
+  setTimeout(()=>{
+    v.pause();
+    v.currentTime = 1;
+  },200);
+});
 </script>
+
 
 </body>
 </html>
