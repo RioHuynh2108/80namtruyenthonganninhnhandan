@@ -28,18 +28,7 @@ body{
   pointer-events:none;
 }
 
-#bg-image{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
 
-  background:url('anhnen2.png') no-repeat center center;
-  background-size:cover;
-
-  z-index:-1; /* nằm dưới game */
-}
 /* TITLE */
 .title{
   text-align:center;
@@ -156,7 +145,7 @@ body{
 /* CONTENT */
 .tab-content{
   display:none;
-  margin-top:10px;
+  margin-top:15px;
 }
 
 .tab-content.active{
@@ -251,7 +240,9 @@ body{
 
 <body>
 
-<div id="bg-image"></div>
+<video id="video-background" autoplay loop muted playsinline>
+  <source src="videonen.mp4">
+</video>
 
 <div class="overlay">
 <audio id="bg-music" loop>
@@ -332,8 +323,7 @@ function openPanel(id){
 + Bảo vệ tuyệt đối an toàn Chính phủ, Chủ tịch Hồ Chí Minh và các cơ quan đầu não của Đảng.<br>
 + Đấu tranh làm thất bại các tổ chức phản cách mạng như Việt Quốc, Việt Cách.<br>
 + Phát hiện, bóc gỡ nhiều mạng lưới gián điệp, biệt kích do thực dân Pháp cài lại.<br>
-+ Bảo vệ an toàn căn cứ địa Việt Bắc – “thủ đô kháng chiến”.<br>
-
++ ảo vệ an toàn căn cứ địa Việt Bắc – “thủ đô kháng chiến.`;
 
   battle = `
   <ul>
@@ -358,9 +348,7 @@ if(id==3){
   - Vai trò của lực lượng ANND giai đoạn này:<br>
 + Phá hàng loạt chuyên án gián điệp, biệt kích xâm nhập miền Bắc (các toán biệt kích Mỹ - ngụy).<br>
 + Bóc gỡ mạng lưới tình báo, nội gián hoạt động phá hoại hậu phương XHCN.<br>
-+ Xây dựng lực lượng an ninh bí mật tại miền Nam, bám dân, bám địa bàn.<br>
-+ Thu thập tin tức tình báo chiến lược phục vụ các chiến dịch lớn.<br>
-
++ Bảo vệ an toàn các cơ quan lãnh đạo cách mạng ở cả hai miền.`;
 
 
   battle = `
@@ -387,7 +375,6 @@ if(id==2){
   - Vai trò của lực lượng ANND giai đoạn này:<br>
 + Đấu tranh triệt phá các tổ chức phản động trong và ngoài nước móc nối phá hoại.<br>
 + Ngăn chặn hoạt động gián điệp, tình báo nước ngoài.<br>
-+ Bảo vệ an ninh biên giới Tây Nam và phía Bắc.<br>
 + Giữ vững ổn định chính trị – xã hội trong giai đoạn khó khăn sau chiến tranh.`;
 
   battle = `
@@ -413,7 +400,6 @@ if(id==1){
 + Đấu tranh làm thất bại âm mưu “diễn biến hòa bình”, bạo loạn lật đổ.<br>
 + Triệt phá nhiều đường dây tội phạm công nghệ cao, lừa đảo xuyên quốc gia.<br>
 + Bảo vệ an ninh mạng, an ninh dữ liệu quốc gia trong thời đại số.<br>
-+ Phát hiện, xử lý các vụ án kinh tế lớn, tham nhũng nghiêm trọng.<br>
 + Đảm bảo an ninh cho các sự kiện chính trị – đối ngoại quan trọng của đất nước.`;
 
   battle = `
