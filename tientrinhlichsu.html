@@ -18,16 +18,18 @@ body{
   padding-bottom:80px;
 }
 
-/* VIDEO NỀN */
-#video-background{
+#bg-image{
   position:fixed;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
-  object-fit:cover;
-  z-index:-1;
-  pointer-events:none;
-}
 
+  background:url('anhnen2.png') no-repeat center center;
+  background-size:cover;
+
+  z-index:-1; /* nằm dưới game */
+}
 
 /* TITLE */
 .title{
@@ -202,6 +204,21 @@ body{
     margin-left:55%;
   }
 }
+
+/* MARQUEE */
+.marquee{
+  overflow:hidden;
+  background:rgba(0,0,0,0.7);
+  padding:8px 0;
+  margin:15px 0;
+}
+
+.marquee span{
+  display:inline-block;
+  white-space:nowrap;
+  animation:marquee 12s linear infinite;
+  color:#FFD700;
+}
 /* MUSIC BUTTON */
 .music-btn{
   position:fixed;
@@ -239,10 +256,7 @@ body{
 </head>
 
 <body>
-
-<video id="video-background" autoplay loop muted playsinline>
-  <source src="videonen.mp4">
-</video>
+<div id="bg-image"></div>
 
 <div class="overlay">
 <audio id="bg-music" loop>
@@ -251,6 +265,10 @@ body{
 
 <button class="music-btn" onclick="toggleMusic()">🔊</button>
 <div class="title">🏛️ CÁC GIAI ĐOẠN CÁCH MẠNG CỦA LỰC LƯỢNG AN NINH NHÂN DÂN</div>
+
+<div class="marquee">
+  <span>📢 Bạn đang xem nội dung các giai đoạn cách mạng của lực lượng ANND - Hãy nhấn chọn các giai đoạn để xem📢</span>
+</div>
 
 <div class="timeline">
 
